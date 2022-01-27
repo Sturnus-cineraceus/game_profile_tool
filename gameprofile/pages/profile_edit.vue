@@ -4,141 +4,133 @@
     <div class="contents">
       <b-card-group deck class="basic_profile">
         <b-card title="基本プロフィール">
-          <!-- <b-card-text>Header and footers using props.</b-card-text> -->
-          <b-form-group
-            id="epic_name_group"
-            label="EpicID:"
-            label-for="input-2"
-          >
-            <b-form-input
-              id="input-2"
-              v-model="form.name"
-              placeholder="Enter name"
-              required
-            ></b-form-input>
-          </b-form-group>
+          <div class="card_contents">
+            <b-form-group
+              id="epic_name_group"
+              label="EpicID:"
+              label-for="input-2"
+            >
+              <b-form-input
+                id="team"
+                v-model="form.name"
+                required
+              ></b-form-input>
+            </b-form-group>
 
-          <b-form-group
-            id="input-group-2"
-            label="チーム名:"
-            label-for="input-2"
-          >
-            <b-form-input
-              id="input-2"
-              v-model="form.name"
-              placeholder="Enter name"
-              required
-            ></b-form-input>
-          </b-form-group>
+            <b-form-group id="team_group" label="チーム名" label-for="input-2">
+              <b-form-input
+                id="team"
+                v-model="form.team"
+                required
+              ></b-form-input>
+            </b-form-group>
 
-          <b-form-group id="input-group-2" label="性別" label-for="input-2">
-            <b-form-select
-              v-model="form.sex"
-              :options="sex_opt"
-            ></b-form-select>
-          </b-form-group>
+            <b-form-group id="sex_group" label="性別" label-for="input-2">
+              <b-form-select
+                v-model="form.sex"
+                :options="sex_opt"
+              ></b-form-select>
+            </b-form-group>
 
-          <b-form-group id="input-group-2" label="強さ" label-for="input-2">
-            <b-form-select
-              v-model="form.strength"
-              :options="strength_opt"
-            ></b-form-select>
-          </b-form-group>
+            <b-form-group id="strength_group" label="強さ" label-for="input-2">
+              <b-form-select
+                v-model="form.strength"
+                :options="strength_opt"
+              ></b-form-select>
+            </b-form-group>
 
-          <b-form-group
-            id="input-group-2"
-            label="よく遊んでるモード"
-            label-for="input-2"
-          >
-            <b-form-select
-              v-model="form.play"
-              :options="play_opt"
-            ></b-form-select>
-          </b-form-group>
+            <b-form-group
+              id="play_group"
+              label="よく遊んでるモード"
+              label-for="input-2"
+            >
+              <b-form-select
+                v-model="form.play"
+                :options="play_opt"
+              ></b-form-select>
+            </b-form-group>
 
-          <b-form-group
-            id="input-group-2"
-            label="ゲームで目指したいこと"
-            label-for="input-2"
-          >
-            <b-form-select
-              v-model="form.important"
-              :options="important_opt"
-            ></b-form-select>
-          </b-form-group>
+            <b-form-group
+              id="important_group"
+              label="ゲームで目指したいこと"
+              label-for="input-2"
+            >
+              <b-form-select
+                v-model="form.important"
+                :options="important_opt"
+              ></b-form-select>
+            </b-form-group>
 
-          <b-form-group
-            id="input-group-2"
-            label="遊んでる時間"
-            label-for="input-2"
-          >
-            <b-form-select
-              v-model="form.time"
-              :options="time_opt"
-            ></b-form-select>
-          </b-form-group>
+            <b-form-group
+              id="time_group"
+              label="遊んでる時間"
+              label-for="input-2"
+            >
+              <b-form-select
+                v-model="form.time"
+                :options="time_opt"
+              ></b-form-select>
+            </b-form-group>
 
-          <b-form-group
-            id="input-group-2"
-            label="コントローラー"
-            label-for="input-2"
-          >
-            <b-form-select
-              v-model="form.ctrler"
-              :options="ctrler_opt"
-            ></b-form-select>
-          </b-form-group>
+            <b-form-group
+              id="ctrler_group"
+              label="コントローラー"
+              label-for="input-2"
+            >
+              <b-form-select
+                v-model="form.ctrler"
+                :options="ctrler_opt"
+              ></b-form-select>
+            </b-form-group>
 
-          <b-form-group id="input-group-2" label="デバイス" label-for="input-2">
-            <b-form-select
-              v-model="form.device"
-              :options="device_opt"
-            ></b-form-select>
-          </b-form-group>
+            <b-form-group
+              id="device_group"
+              label="デバイス"
+              label-for="input-2"
+            >
+              <b-form-select
+                v-model="form.device"
+                :options="device_opt"
+              ></b-form-select>
+            </b-form-group>
 
-          <b-form-group
-            id="input-group-2"
-            label="ボイスチャット"
-            label-for="input-2"
-          >
-            <b-form-select v-model="form.vc" :options="vc_opt"></b-form-select>
-          </b-form-group>
+            <b-form-group
+              id="vc_group"
+              label="ボイスチャット"
+              label-for="input-2"
+            >
+              <b-form-select
+                v-model="form.vc"
+                :options="vc_opt"
+              ></b-form-select>
+            </b-form-group>
 
-          <b-form-group
-            id="input-group-2"
-            label="Epicネーム:"
-            label-for="input-2"
-          >
-            <b-form-input
-              id="input-2"
-              v-model="form.name"
-              placeholder="Enter name"
-              required
-            ></b-form-input>
-          </b-form-group>
-
-          <b-form-group
-            id="input-group-2"
-            label="Epicネーム:"
-            label-for="input-2"
-          >
-            <b-form-input
-              id="input-2"
-              v-model="form.name"
-              placeholder="Enter name"
-              required
-            ></b-form-input>
-          </b-form-group>
+            <b-form-group
+              id="message_group"
+              label="ひとこと"
+              label-for="input-2"
+            >
+              <b-form-textarea
+                id="textarea"
+                v-model="form.message"
+                placeholder="伝えたいことを書いてください"
+                rows="3"
+                max-rows="10"
+              ></b-form-textarea>
+            </b-form-group>
+          </div>
         </b-card>
       </b-card-group>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 <script>
 import axios from "axios";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 export default {
-  components: { Header },
+  components: { Header, Footer },
   name: "ProfileEdit",
   data: () => ({
     hoge: "das",
@@ -153,6 +145,8 @@ export default {
       time: null,
       device: null,
       ctrler: null,
+      message: "",
+      team: "",
     },
     sex_opt: [
       { value: "n", text: "" },
@@ -267,7 +261,12 @@ div.contents {
   align-items: center;
   .basic_profile {
     padding-top: 5em;
+    padding-bottom: 10em;
     width: 80%;
+    input,
+    select {
+      max-width: 25em;
+    }
   }
 }
 </style>

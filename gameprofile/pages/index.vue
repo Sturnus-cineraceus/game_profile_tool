@@ -32,22 +32,15 @@
           <b-link href="#" class="card-link">Another link</b-link>
         </b-card> -->
     </div>
-    <footer class="fixed-bottom">
-      <!-- <b-nav align="center">
-        <b-nav-item active>Active</b-nav-item>
-        <b-nav-item>Link</b-nav-item>
-        <b-nav-item>Another Link</b-nav-item>
-        <b-nav-item disabled>Disabled</b-nav-item>
-      </b-nav> -->
-      <p>Copyright 2021 glorificatio.</p>
-    </footer>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 export default {
-  components: { Header },
+  components: { Header, Footer },
   name: "IndexPage",
   data: () => ({ text: "", user: {}, userName: "", login: false }),
   async mounted() {
