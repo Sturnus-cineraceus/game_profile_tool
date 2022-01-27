@@ -9,6 +9,13 @@ import axios from "axios";
 export default {
   name: "ProfileEdit",
   data: () => ({ hoge: "das", epic_name: "" }),
+  async mounted() {
+    this.$authUtil.permitLogin().then(() => {
+      // this.user = this.$store.state.user.data;
+      // this.userName = this.user.twitter_data.user_name;
+      // this.login = this.user.twitter;
+    });
+  },
   methods: {
     click: function () {
       let user = this.$store.state.user.data;

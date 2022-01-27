@@ -16,6 +16,15 @@ export default ({ store }, inject) => {
             } catch (e) {
                 console.log(e)
             }
+        },
+        permitLogin: async () => {
+
+            await auth.verifyAuth();
+            console.log(store.state.user.data.twitter)
+            if (!store.state.user.data.twitter) {
+                window.location.href = "/"
+            }
+
         }
     }
 
