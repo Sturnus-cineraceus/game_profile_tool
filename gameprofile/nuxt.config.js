@@ -39,20 +39,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
-  auth: {
-    strategies: {
-      auth0: {
-        domain: 'dev-y63ry488.us.auth0.com',
-        client_id: 'UrMc4Rsg3wKjWbhU4NcpqRcw4FthSeQ0',
-      }
-    },
-    redirect: {
-      login: '/',  // 未ログイン時のリダイレクト先
-      logout: '/logout',  // ログアウト処理を実行した直後のリダイレクト先
-      callback: '/callback',  // コールバックURL
-      home: '/mypage',  // ログイン後に遷移するページ
-    },
-  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
