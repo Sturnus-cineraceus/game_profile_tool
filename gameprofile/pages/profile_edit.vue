@@ -119,6 +119,7 @@
               ></b-form-textarea>
             </b-form-group>
           </div>
+          <b-button variant="success">書き込む</b-button>
         </b-card>
       </b-card-group>
     </div>
