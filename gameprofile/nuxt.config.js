@@ -39,6 +39,9 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
+  bootstrapVue: {
+    icons: true
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },

@@ -3,9 +3,21 @@
     <Header></Header>
     <div class="contents">
       <div class="main_button_area">
-        <b-button variant="primary"
-          ><b-icon-arrow-up></b-icon-arrow-up>ツイッターでログイン</b-button
+        <b-button
+          v-if="!login"
+          variant="primary"
+          @click="$router.push({ path: '/login' })"
         >
+          <b-icon-twitter></b-icon-twitter>ツイッターでログイン
+        </b-button>
+
+        <b-button
+          v-if="login"
+          variant="success"
+          @click="$router.push({ path: '/profile_edit' })"
+        >
+          <b-icon-pencil-square></b-icon-pencil-square>プロフィール編集
+        </b-button>
       </div>
 
       <!-- <b-card title="Card title" sub-title="Card subtitle">
@@ -37,12 +49,13 @@ import Header from "@/components/header";
 export default {
   components: { Header },
   name: "IndexPage",
-  data: () => ({ text: "", user: {}, userName: "" }),
+  data: () => ({ text: "", user: {}, userName: "", login: false }),
   async mounted() {
     console.log(this.$authUtil);
     this.$authUtil.verifyAuth().then(() => {
       this.user = this.$store.state.user.data;
       this.userName = this.user.twitter_data.user_name;
+      this.login = this.user.twitter;
     });
   },
 };
