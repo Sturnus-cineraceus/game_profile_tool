@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  api:
+    build: ./gameapi
+    volumes:
+      - ./gameapi/app:/app/app
+    command: /start-reload.sh
+    env_file:
+      - .env
+    depends_on:
+      - mysqldb
+  mysqldb:
+    image: mysql:8.0
+    container_name: mysql_container
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_P}
+      MYSQL_DATABASE: ${DB}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWD}
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/sql:/docker-entrypoint-initdb.d
+  front:
+    build: ./gameprofile # Dockerfileの場所
+    working_dir: /app # ホストOSとコンテナ内でソースコードを共有する
+    command: yarn dev
+    env_file:
+      - .env
+    volumes:
+      - ./gameprofile:/app
+    ports:
+      - "127.0.0.1:3000:3000"
+    tty: true # コンテナ起動後、StatusがExitにならないようttyの設定
+    depends_on:
+      - api

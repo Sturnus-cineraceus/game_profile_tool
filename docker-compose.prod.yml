@@ -1,0 +1,4 @@
+version: '3'
+service:
+  front:
+    command: yarn start
