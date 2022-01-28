@@ -1,9 +1,9 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="/"
-        >ゲームの履歴書やるやつ (α版の前段階)</b-navbar-brand
-      >
+      <b-navbar-brand @click="$router.push({ path: '/' })" href="#"
+        >ゲームの履歴書やるやつ (α版の前段階)
+      </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <!-- <b-navbar-nav>
@@ -34,7 +34,6 @@ export default {
     this.$authUtil.verifyAuth().then(() => {
       this.user = this.$store.state.user.data;
       this.img = this.user.twitter_data.profile_image;
-      console.log(this.user);
       this.userName = this.user.twitter_data.user_name;
     });
   },

@@ -119,7 +119,9 @@
               ></b-form-textarea>
             </b-form-group>
           </div>
-          <b-button variant="success">書き込む</b-button>
+          <b-button variant="success" @click="post_profile()"
+            >書き込む</b-button
+          >
         </b-card>
       </b-card-group>
     </div>
@@ -234,22 +236,22 @@ export default {
     });
   },
   methods: {
-    click: function () {
-      let user = this.$store.state.user.data;
-      console.log(user);
-      if (!user.twitter_data) {
-        console.log("ほげ");
-        window.location.href = "/";
-        return;
-      }
-      console.log(user);
-      let data = {
-        twitter_id: user.twitter_data.id,
-        epic_name: this.epic_name,
-      };
+    post_profile: function () {
+      // let user = this.$store.state.user.data;
+      // console.log(user);
+      // if (!user.twitter_data) {
+      //   console.log("ほげ");
+      //   window.location.href = "/";
+      //   return;
+      // }
+      // console.log(user);
+      // let data = {
+      //   twitter_id: user.twitter_data.id,
+      //   epic_name: this.epic_name,
+      // };
 
-      axios.post("/v1/api/profile", data).catch((e) => {
-        console.log(e);
+      axios.post("/v1/api/profile", this.form).catch((e) => {
+        this.$logger.error(e);
       });
     },
   },

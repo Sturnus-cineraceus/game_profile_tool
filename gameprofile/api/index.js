@@ -4,6 +4,13 @@ const MySQLStore = require('express-mysql-session')(session);
 const app = express()
 app.use(express.json())
 
+import * as log from 'loglevel'
+if (process.env.DEV_MODE == 1) {
+    log.setLevel('trace')
+} else {
+    log.setLevel('info')
+}
+
 let cookie_secure = true;
 if (process.env.DEV_MODE == 1) {
     cookie_secure = false;
@@ -33,7 +40,7 @@ app.use(session({
 
 
 app.post("/profile", async (req, res) => {
-    console.log(req.body)
+    log.debug(req.body)
     // let resp = await axios.post("http://api/profile", {
     //     firstName: '三郎',
     //     lastName: '田中'
@@ -41,24 +48,23 @@ app.post("/profile", async (req, res) => {
     // console.log(resp);
 })
 
-app.get('/', async (req, res) => {
-    let resp = await axios.get("http://api/");
-    console.log(resp.data);
-    if (!req.session.hoge) {
-        req.session.hoge = "kamisama";
-        res.json({ message: resp.data })
-    } else {
-        res.json({ message: req.session.hoge })
-    }
+// app.get('/', async (req, res) => {
+//     let resp = await axios.get("http://api/");
+//     console.log(resp.data);
+//     if (!req.session.hoge) {
+//         req.session.hoge = "kamisama";
+//         res.json({ message: resp.data })
+//     } else {
+//         res.json({ message: req.session.hoge })
+//     }
 
-})
+// })
 
 app.get('/user_name', async (req, res) => {
-    console.log(req.session)
     if (!req.session.oauth_token || !req.session.oauth_token_secret) {
         return res.json({ twitter_data: { user_name: "ゲスト" }, twitter: false })
     }
-    let resp = await axios.get("http://api/user_name", { params: { token: req.session.oauth_token, token_secret: req.session.oauth_token_secret } });
+    let resp = await axios.post("http://api/user_name", { token: req.session.oauth_token, token_secret: req.session.oauth_token_secret });
     res.json({ twitter_data: resp.data, twitter: true })
 })
 
@@ -80,6 +86,8 @@ app.get('/callback', async (req, res) => {
         return;
     }
 })
+
+
 
 
 module.exports = {

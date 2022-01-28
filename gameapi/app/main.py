@@ -28,7 +28,6 @@ def post_profile(data: ProfileData):
 def login():
     # 1.リクエストトークンを取得する。
     # (Step 1: Obtaining a request token:https://developer.twitter.com/en/docs/authentication/guides/log-in-with-twitter)
-    print(config.api_key, config.api_secret)
     twitter = OAuth1Session(config.api_key, config.api_secret)
     res = twitter.post(request_token_endpoint, params={
         'oauth_callback': oauth_callback})
@@ -47,14 +46,17 @@ def read_item(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
 
 
-@app.get("/user_name")
-def get_username(token, token_secret):
-    print(token)
+class TokenData(BaseModel):
+    token: str
+    token_secret: str
+
+
+@app.post("/user_name")
+def post_username(tokenData: TokenData):
     auth = tweepy.OAuthHandler(config.api_key, config.api_secret)
-    auth.set_access_token(token, token_secret)
+    auth.set_access_token(tokenData.token, tokenData.token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
     user = api.verify_credentials()
-    print(user)
     return {"user_name": user.name, "id": user.id, "screen_name": user.screen_name, "profile_image": user.profile_image_url_https}
 
 
