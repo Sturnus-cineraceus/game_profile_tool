@@ -44,6 +44,7 @@ export default {
   name: "IndexPage",
   data: () => ({ text: "", user: {}, userName: "", login: false }),
   async mounted() {
+    this.$logger.debug("マウント");
     this.$authUtil.verifyAuth().then(() => {
       this.user = this.$store.state.user.data;
       this.userName = this.user.twitter_data.user_name;

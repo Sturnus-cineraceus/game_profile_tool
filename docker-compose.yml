@@ -30,6 +30,8 @@ services:
     command: yarn dev
     env_file:
       - .env
+    environment:
+      - DEV_MODE=1
     volumes:
       - ./gameprofile:/app
     ports:

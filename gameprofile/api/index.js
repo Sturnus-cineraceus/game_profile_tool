@@ -4,11 +4,20 @@ const MySQLStore = require('express-mysql-session')(session);
 const app = express()
 app.use(express.json())
 
+let cookie_secure = true;
+if (process.env.DEV_MODE == 1) {
+    cookie_secure = false;
+    console.log("デバッグモード")
+}
+
 const options = {
     host: 'mysqldb',
     port: 3306,
     user: process.env.DB_USER,
-    cookie: { maxAge: 60000000 },
+    cookie: {
+        maxAge: 60000000, httpOnly: true,
+        secure: cookie_secure,
+    },
     password: process.env.DB_PASSWD,
     database: process.env.DB,
 };

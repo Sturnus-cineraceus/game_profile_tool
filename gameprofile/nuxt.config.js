@@ -22,7 +22,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '@/plugins/auth', mode: 'client' }
+    { src: '@/plugins/auth', mode: 'client' },
+    '@/plugins/logger'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -47,5 +48,8 @@ export default {
   },
   server: {
     host: '0'
+  },
+  publicRuntimeConfig: {
+    DEV_MODE: process.env.DEV_MODE
   }
 }

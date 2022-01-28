@@ -2,3 +2,5 @@ version: '3'
 service:
   front:
     command: yarn start
+    environment:
+      - DEV_MODE=0

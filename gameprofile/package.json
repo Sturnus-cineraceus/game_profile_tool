@@ -19,6 +19,7 @@
     "express": "^4.17.2",
     "express-mysql-session": "^2.1.7",
     "express-session": "^1.17.2",
+    "loglevel": "^1.8.0",
     "nuxt": "^2.15.8",
     "vue": "^2.6.14",
     "vue-server-renderer": "^2.6.14",
