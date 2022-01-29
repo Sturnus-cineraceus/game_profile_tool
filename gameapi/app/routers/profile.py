@@ -1,5 +1,8 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
+from sqlalchemy.orm import sessionmaker
+from app.db.database import User, Profile
+
 router = APIRouter()
 
 
@@ -20,5 +23,7 @@ class ProfileData(BaseModel):
 
 @router.post('/')
 def post_profile(data: ProfileData):
+    Session = sessionmaker(engine)
+    session = Session()
     print(data)
     return "das"

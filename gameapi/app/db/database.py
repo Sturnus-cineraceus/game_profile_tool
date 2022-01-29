@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import Column
-from sqlalchemy.types import Integer, String
+from sqlalchemy.types import Integer, String, Text
 import app.config as config
 
 HOST = 'mysqldb'
@@ -24,14 +24,31 @@ class User(Base):
 
 
 class Profile(Base):
-    __tablename__ = 'user'
+    __tablename__ = 'profile'
     __table_args__ = ({"mysql_charset": "utf8mb4"})
     user_id = Column(String(40), primary_key=True)
     epic_name = Column(String(254))
+    sex = Column(Integer)
+    strength = Column(Integer)
+    play = Column(Integer)
+    important = Column(Integer)
+    vc = Column(Integer)
+    time = Column(Integer)
+    device = Column(Integer)
+    ctrler = Column(Integer)
+    message = Column(Text)
+    team = Column(String(254))
 
 
 # # テーブルを作成する
-# Base.metadata.create_all(engine)
+def init():
+    print("hoge")
+    Base.metadata.create_all(engine)
+
+
+if __name__ == '__main__':
+    init()
+
 
 # # セッションを作成する
 # Session = sessionmaker(engine)
