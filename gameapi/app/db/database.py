@@ -40,7 +40,14 @@ class Profile(Base):
     team = Column(String(254))
 
 
+def createSession():
+    Session = sessionmaker(engine)
+    session = Session()
+    return session
+
 # # テーブルを作成する
+
+
 def init():
     print("hoge")
     Base.metadata.create_all(engine)

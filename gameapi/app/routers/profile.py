@@ -1,7 +1,8 @@
-from fastapi import APIRouter
+from app.db.database import Profile, User, createSession
+from fastapi import APIRouter, status
 from pydantic import BaseModel
 from sqlalchemy.orm import sessionmaker
-from app.db.database import User, Profile
+from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
@@ -21,9 +22,12 @@ class ProfileData(BaseModel):
     team: str
 
 
-@router.post('/')
+@router.post('/', status_code=201)
 def post_profile(data: ProfileData):
-    Session = sessionmaker(engine)
-    session = Session()
-    print(data)
-    return "das"
+    session = createSession()
+    data_dic = data.__dict__
+    data_dic.pop('twitter_id')
+    profile = Profile(**data.__dict__)
+    session.add(profile)
+    session.commit()
+    return {status: "OK"}

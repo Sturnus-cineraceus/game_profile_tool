@@ -152,10 +152,10 @@ export default {
       team: "",
     },
     sex_opt: [
-      { value: "n", text: "" },
-      { value: "m", text: "男性" },
-      { value: "f", text: "女性" },
-      { value: "x", text: "その他" },
+      { value: "0", text: "" },
+      { value: "1", text: "男性" },
+      { value: "2", text: "女性" },
+      { value: "3", text: "その他" },
     ],
     strength_opt: [
       { value: "0", text: "" },
