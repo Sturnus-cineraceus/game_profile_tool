@@ -41,11 +41,8 @@ app.use(session({
 
 app.post("/profile", async (req, res) => {
     log.debug(req.body)
-    // let resp = await axios.post("http://api/profile", {
-    //     firstName: '三郎',
-    //     lastName: '田中'
-    // });
-    // console.log(resp);
+    let resp = await axios.post("http://api/profile/",
+        req.body);
 })
 
 // app.get('/', async (req, res) => {

@@ -4,24 +4,17 @@ from requests_oauthlib import OAuth1Session
 import urllib.parse as parse
 from pydantic import BaseModel
 import app.config as config
+from app.routers import profile
+
 app = FastAPI()
 
-oauth_callback = "http://127.0.0.1:3000/callback"
+oauth_callback = "http://" + config.domain + "/callback"
 twitter_base_url = 'https://api.twitter.com'
 authorization_endpoint = twitter_base_url + '/oauth/authenticate'
 request_token_endpoint = twitter_base_url + '/oauth/request_token'
 token_endpoint = twitter_base_url + '/oauth/access_token'
 
-
-class ProfileData(BaseModel):
-    twitter_id: int
-    epicName: str
-
-
-@app.post('/profile')
-def post_profile(data: ProfileData):
-    print(data)
-    return "das"
+app.include_router(profile.router, prefix="/profile")
 
 
 @app.get('/login')

@@ -12,7 +12,7 @@
             >
               <b-form-input
                 id="team"
-                v-model="form.name"
+                v-model="form.epic_name"
                 required
               ></b-form-input>
             </b-form-group>
@@ -136,18 +136,18 @@ export default {
   components: { Header, Footer },
   name: "ProfileEdit",
   data: () => ({
-    hoge: "das",
-    epic_name: "",
+    user: null,
     form: {
-      name: "",
-      sex: null,
-      strength: null,
-      play: null,
-      important: null,
-      vc: null,
-      time: null,
-      device: null,
-      ctrler: null,
+      twitter_id: null,
+      epic_name: "",
+      sex: 0,
+      strength: 0,
+      play: 0,
+      important: 0,
+      vc: 0,
+      time: 0,
+      device: 0,
+      ctrler: 0,
       message: "",
       team: "",
     },
@@ -230,9 +230,8 @@ export default {
   }),
   async mounted() {
     this.$authUtil.permitLogin().then(() => {
-      // this.user = this.$store.state.user.data;
-      // this.userName = this.user.twitter_data.user_name;
-      // this.login = this.user.twitter;
+      this.user = this.$store.state.user.data;
+      this.form.twitter_id = this.user.twitter_data.id;
     });
   },
   methods: {
