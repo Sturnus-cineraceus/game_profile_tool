@@ -31,7 +31,7 @@ def convert_twitter_id(twitter_id):
 def get_profile(user_id):
     session = createSession()
     profile = session.query(
-        Profile).filter_by(user_id=user_id).one()
+        Profile).filter_by(user_id=user_id).first()
     print(profile)
     return profile
 

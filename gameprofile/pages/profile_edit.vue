@@ -2,128 +2,138 @@
   <div>
     <Header></Header>
     <div class="contents">
-      <b-card-group deck class="basic_profile">
-        <b-card title="基本プロフィール">
-          <div class="card_contents">
-            <b-form-group
-              id="epic_name_group"
-              label="EpicID:"
-              label-for="input-2"
+      <b-overlay class="basic_profile" :show="overlay_show" rounded="sm">
+        <b-card-group deck>
+          <b-card title="基本プロフィール">
+            <div class="card_contents">
+              <b-form-group
+                id="epic_name_group"
+                label="EpicID:"
+                label-for="input-2"
+              >
+                <b-form-input
+                  id="team"
+                  v-model="form.epic_name"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                id="team_group"
+                label="チーム名"
+                label-for="input-2"
+              >
+                <b-form-input
+                  id="team"
+                  v-model="form.team"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group id="sex_group" label="性別" label-for="input-2">
+                <b-form-select
+                  v-model="form.sex"
+                  :options="sex_opt"
+                ></b-form-select>
+              </b-form-group>
+
+              <b-form-group
+                id="strength_group"
+                label="強さ"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.strength"
+                  :options="strength_opt"
+                ></b-form-select>
+              </b-form-group>
+
+              <b-form-group
+                id="play_group"
+                label="よく遊んでるモード"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.play"
+                  :options="play_opt"
+                ></b-form-select>
+              </b-form-group>
+
+              <b-form-group
+                id="important_group"
+                label="ゲームで目指したいこと"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.important"
+                  :options="important_opt"
+                ></b-form-select>
+              </b-form-group>
+
+              <b-form-group
+                id="time_group"
+                label="遊んでる時間"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.time"
+                  :options="time_opt"
+                ></b-form-select>
+              </b-form-group>
+
+              <b-form-group
+                id="ctrler_group"
+                label="コントローラー"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.ctrler"
+                  :options="ctrler_opt"
+                ></b-form-select>
+              </b-form-group>
+
+              <b-form-group
+                id="device_group"
+                label="デバイス"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.device"
+                  :options="device_opt"
+                ></b-form-select>
+              </b-form-group>
+
+              <b-form-group
+                id="vc_group"
+                label="ボイスチャット"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.vc"
+                  :options="vc_opt"
+                ></b-form-select>
+              </b-form-group>
+
+              <b-form-group
+                id="message_group"
+                label="ひとこと"
+                label-for="input-2"
+              >
+                <b-form-textarea
+                  id="textarea"
+                  v-model="form.message"
+                  placeholder="伝えたいことを書いてください"
+                  rows="3"
+                  max-rows="10"
+                ></b-form-textarea>
+              </b-form-group>
+            </div>
+            <b-button variant="success" @click="post_profile()"
+              >書き込む</b-button
             >
-              <b-form-input
-                id="team"
-                v-model="form.epic_name"
-                required
-              ></b-form-input>
-            </b-form-group>
-
-            <b-form-group id="team_group" label="チーム名" label-for="input-2">
-              <b-form-input
-                id="team"
-                v-model="form.team"
-                required
-              ></b-form-input>
-            </b-form-group>
-
-            <b-form-group id="sex_group" label="性別" label-for="input-2">
-              <b-form-select
-                v-model="form.sex"
-                :options="sex_opt"
-              ></b-form-select>
-            </b-form-group>
-
-            <b-form-group id="strength_group" label="強さ" label-for="input-2">
-              <b-form-select
-                v-model="form.strength"
-                :options="strength_opt"
-              ></b-form-select>
-            </b-form-group>
-
-            <b-form-group
-              id="play_group"
-              label="よく遊んでるモード"
-              label-for="input-2"
-            >
-              <b-form-select
-                v-model="form.play"
-                :options="play_opt"
-              ></b-form-select>
-            </b-form-group>
-
-            <b-form-group
-              id="important_group"
-              label="ゲームで目指したいこと"
-              label-for="input-2"
-            >
-              <b-form-select
-                v-model="form.important"
-                :options="important_opt"
-              ></b-form-select>
-            </b-form-group>
-
-            <b-form-group
-              id="time_group"
-              label="遊んでる時間"
-              label-for="input-2"
-            >
-              <b-form-select
-                v-model="form.time"
-                :options="time_opt"
-              ></b-form-select>
-            </b-form-group>
-
-            <b-form-group
-              id="ctrler_group"
-              label="コントローラー"
-              label-for="input-2"
-            >
-              <b-form-select
-                v-model="form.ctrler"
-                :options="ctrler_opt"
-              ></b-form-select>
-            </b-form-group>
-
-            <b-form-group
-              id="device_group"
-              label="デバイス"
-              label-for="input-2"
-            >
-              <b-form-select
-                v-model="form.device"
-                :options="device_opt"
-              ></b-form-select>
-            </b-form-group>
-
-            <b-form-group
-              id="vc_group"
-              label="ボイスチャット"
-              label-for="input-2"
-            >
-              <b-form-select
-                v-model="form.vc"
-                :options="vc_opt"
-              ></b-form-select>
-            </b-form-group>
-
-            <b-form-group
-              id="message_group"
-              label="ひとこと"
-              label-for="input-2"
-            >
-              <b-form-textarea
-                id="textarea"
-                v-model="form.message"
-                placeholder="伝えたいことを書いてください"
-                rows="3"
-                max-rows="10"
-              ></b-form-textarea>
-            </b-form-group>
-          </div>
-          <b-button variant="success" @click="post_profile()"
-            >書き込む</b-button
-          >
-        </b-card>
-      </b-card-group>
+          </b-card>
+        </b-card-group>
+      </b-overlay>
     </div>
     <Footer></Footer>
   </div>
@@ -137,6 +147,7 @@ export default {
   name: "ProfileEdit",
   data: () => ({
     user: null,
+    overlay_show: false,
     form: {
       twitter_id: null,
       epic_name: "",
@@ -229,31 +240,25 @@ export default {
     ],
   }),
   async mounted() {
-    this.$authUtil.permitLogin().then(async () => {
-      this.user = this.$store.state.user.data;
+    this.overlay_show = true;
+    this.$authUtil
+      .permitLogin()
+      .then(async () => {
+        this.user = this.$store.state.user.data;
 
-      let user_id = this.user.twitter_data.user_id;
-      let initData = await axios.get("/v1/api/profile/" + user_id);
-      this.$logger.debug(initData);
-      this.form = initData.data;
-      this.form.twitter_id = this.user.twitter_data.id;
-    });
+        let user_id = this.user.twitter_data.user_id;
+        let initData = await axios.get("/v1/api/profile/" + user_id);
+        this.$logger.debug(initData);
+        this.form = initData.data;
+        this.form.twitter_id = this.user.twitter_data.id;
+      })
+      .finally(() => {
+        this.overlay_show = false;
+      });
   },
   methods: {
     post_profile: function () {
-      // let user = this.$store.state.user.data;
-      // console.log(user);
-      // if (!user.twitter_data) {
-      //   console.log("ほげ");
-      //   window.location.href = "/";
-      //   return;
-      // }
-      // console.log(user);
-      // let data = {
-      //   twitter_id: user.twitter_data.id,
-      //   epic_name: this.epic_name,
-      // };
-
+      this.overlay_show = true;
       axios
         .post("/v1/api/profile", this.form)
         .then((res) => {
@@ -270,6 +275,9 @@ export default {
             solid: true,
           });
           this.$logger.error(e);
+        })
+        .finally(() => {
+          this.overlay_show = false;
         });
     },
   },

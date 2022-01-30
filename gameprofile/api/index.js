@@ -40,7 +40,10 @@ app.use(session({
 
 app.get("/profile/:user_id", async (req, res) => {
     let resp = await axios.get("http://api/profile/" + req.params.user_id);
-    log.debug(resp.data)
+    if (!resp.data) {
+        res.status(404).send()
+        return
+    }
     return res.send(resp.data)
 });
 
