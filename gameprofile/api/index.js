@@ -38,6 +38,11 @@ app.use(session({
     saveUninitialized: false
 }));
 
+app.get("/profile/:user_id", async (req, res) => {
+    let resp = await axios.get("http://api/profile/" + req.params.user_id);
+    log.debug(resp.data)
+    return res.send(resp.data)
+});
 
 app.post("/profile", async (req, res) => {
     log.debug(req.body)
@@ -52,28 +57,25 @@ app.post("/profile", async (req, res) => {
     }
 })
 
-// app.get('/', async (req, res) => {
-//     let resp = await axios.get("http://api/");
-//     console.log(resp.data);
-//     if (!req.session.hoge) {
-//         req.session.hoge = "kamisama";
-//         res.json({ message: resp.data })
-//     } else {
-//         res.json({ message: req.session.hoge })
-//     }
-
-// })
-
 app.get('/user_name', async (req, res) => {
     if (!req.session.oauth_token || !req.session.oauth_token_secret) {
         return res.json({ twitter_data: { user_name: "ゲスト" }, twitter: false })
     }
     let resp = await axios.post("http://api/user_name", { token: req.session.oauth_token, token_secret: req.session.oauth_token_secret });
+    log.debug(resp.data)
     res.json({ twitter_data: resp.data, twitter: true })
+
+})
+
+app.get('/logout', async (req, res) => {
+    delete req.session.oauth_token
+    delete req.session.oauth_token_secret
+    res.json({ result: "ok" })
 })
 
 app.get('/login', async (req, res) => {
     let resp = await axios.get("http://api/login");
+    log.debug(resp.data)
     res.json({ url: resp.data })
 })
 

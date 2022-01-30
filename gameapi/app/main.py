@@ -5,8 +5,16 @@ import urllib.parse as parse
 from pydantic import BaseModel
 import app.config as config
 from app.routers import profile
-
+from app.db.database import User, createSession
+from fastapi.responses import JSONResponse
+import hashlib
 app = FastAPI()
+
+
+def convert_twitter_id(twitter_id):
+    idsrc = "twitter" + twitter_id
+    return hashlib.md5(idsrc.encode('utf-8')).hexdigest()
+
 
 oauth_callback = "http://" + config.domain + "/callback"
 twitter_base_url = 'https://api.twitter.com'
@@ -50,7 +58,23 @@ def post_username(tokenData: TokenData):
     auth.set_access_token(tokenData.token, tokenData.token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
     user = api.verify_credentials()
-    return {"user_name": user.name, "id": user.id_str, "screen_name": user.screen_name, "profile_image": user.profile_image_url_https}
+    user_id = convert_twitter_id(user.id_str)
+    session = createSession()
+    try:
+        user_count = session.query(User).filter_by(id=user_id).count()
+        if user_count <= 0:
+            userTable = User()
+            userTable.id = user_id
+            userTable.twitter_id = user.id_str
+            session.add(userTable)
+            session.commit()
+        return {"user_name": user.name, "id": user.id_str,
+                "screen_name": user.screen_name, "profile_image": user.profile_image_url_https, "user_id": user_id}
+
+    except Exception as e:
+        print(e)
+        session.rollback()
+        return JSONResponse(status_code=500)
 
 
 @app.get("/accesstoken")

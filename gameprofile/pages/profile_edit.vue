@@ -229,8 +229,13 @@ export default {
     ],
   }),
   async mounted() {
-    this.$authUtil.permitLogin().then(() => {
+    this.$authUtil.permitLogin().then(async () => {
       this.user = this.$store.state.user.data;
+
+      let user_id = this.user.twitter_data.user_id;
+      let initData = await axios.get("/v1/api/profile/" + user_id);
+      this.$logger.debug(initData);
+      this.form = initData.data;
       this.form.twitter_id = this.user.twitter_data.id;
     });
   },
@@ -249,14 +254,23 @@ export default {
       //   epic_name: this.epic_name,
       // };
 
-      axios.post("/v1/api/profile", this.form).catch((e) => {
-        this.$bvToast.toast("保存に失敗しました", {
-          variant: "danger",
-          autoHideDelay: 5000,
-          solid: true,
+      axios
+        .post("/v1/api/profile", this.form)
+        .then((res) => {
+          this.$bvToast.toast("保存しました", {
+            variant: "success",
+            autoHideDelay: 5000,
+            solid: true,
+          });
+        })
+        .catch((e) => {
+          this.$bvToast.toast("保存に失敗しました", {
+            variant: "danger",
+            autoHideDelay: 5000,
+            solid: true,
+          });
+          this.$logger.error(e);
         });
-        this.$logger.error(e);
-      });
     },
   },
 };
