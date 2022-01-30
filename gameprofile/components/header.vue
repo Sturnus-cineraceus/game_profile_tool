@@ -19,22 +19,63 @@
             <b-avatar variant="info" :src="img" class="mr-3"></b-avatar
           ></b-nav-text>
 
-          <b-nav-item href="/profile">プロフィール</b-nav-item>
-          <b-nav-item href="/login">ログイン</b-nav-item>
-          <b-nav-item href="/logout">ログアウト</b-nav-item>
+          <b-nav-item
+            @click="goProfile"
+            v-if="inLogin && existsPublicProfile"
+            href="#"
+            >自分のプロフィール表示</b-nav-item
+          >
+          <b-nav-item
+            v-if="!inLogin"
+            @click="$router.push({ path: '/login' })"
+            href="#"
+            >ログイン</b-nav-item
+          >
+          <b-nav-item
+            v-if="inLogin"
+            @click="$router.push({ path: '/logout' })"
+            href="#"
+            >ログアウト</b-nav-item
+          >
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
-  data: () => ({ user: {}, userName: "", img: "" }),
+  data: () => ({
+    user: {},
+    userName: "",
+    img: "",
+    inLogin: false,
+    existsPublicProfile: false,
+  }),
+  methods: {
+    goProfile: function () {
+      let user_id = this.user.twitter_data.user_id;
+      this.$router.push({ path: "/profile/" + user_id });
+    },
+  },
   mounted() {
-    this.$authUtil.verifyAuth().then(() => {
+    this.$authUtil.verifyAuth().then(async () => {
       this.user = this.$store.state.user.data;
-      this.img = this.user.twitter_data.profile_image;
       this.userName = this.user.twitter_data.user_name;
+      if (!this.user.twitter) {
+        return;
+      }
+      this.inLogin = true;
+      this.img = this.user.twitter_data.profile_image;
+      let user_id = this.user.twitter_data.user_id;
+      this.$logger.debug("ヘッダー ユーザーID", user_id);
+      try {
+        let initData = await axios.get("/v1/api/user_profile/" + user_id);
+        this.$logger.debug("ヘッダープロフィールデータ", initData);
+        this.existsPublicProfile = true;
+      } catch (e) {
+        this.$logger.info("not found profile data");
+      }
     });
   },
 };

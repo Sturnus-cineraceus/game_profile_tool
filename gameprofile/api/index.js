@@ -47,6 +47,16 @@ app.get("/profile/:user_id", async (req, res) => {
     return res.send(resp.data)
 });
 
+app.get("/user_profile/:user_id", async (req, res) => {
+    log.debug(req.body)
+    let resp = await axios.get("http://api/user_profile/" + req.params.user_id);
+    if (!resp.data) {
+        res.status(404).send()
+        return
+    }
+    return res.send(resp.data)
+});
+
 app.post("/profile", async (req, res) => {
     log.debug(req.body)
     try {

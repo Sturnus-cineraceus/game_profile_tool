@@ -15,7 +15,7 @@ export default {
   async asyncData({ route, error }) {
     try {
       let res = await axios.get(
-        "http://localhost:3000/v1/api/profile/" + route.params.user_id
+        "http://localhost:3000/v1/api/user_profile/" + route.params.user_id
       );
       console.log(res.data);
       return { profile_data: res.data };

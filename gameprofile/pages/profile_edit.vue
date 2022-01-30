@@ -254,7 +254,7 @@ export default {
       .permitLogin()
       .then(async () => {
         this.user = this.$store.state.user.data;
-        this.$logger.debug("プロフィールデータ", this.user);
+        this.$logger.debug("ユーザーデータ", this.user);
         let user_id = this.user.twitter_data.user_id;
         try {
           let initData = await axios.get("/v1/api/profile/" + user_id);

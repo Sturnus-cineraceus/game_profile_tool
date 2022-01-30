@@ -6,6 +6,7 @@ export default ({ store }, inject) => {
     const auth = {
         verifyAuth: async () => {
             try {
+                console.log(store.state.user.data.twitter_data)
                 let url = "/v1/api/user_name";
                 if (!store.state.user.data.twitter_data) {
                     let response = await axios.get(url);
