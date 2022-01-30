@@ -20,6 +20,10 @@ class ProfileData(BaseModel):
     ctrler: int
     message: str
     team: str
+    twitter_name: str
+    twitter_url: str
+    twitter_image_url: str
+    available: bool
 
 
 def convert_twitter_id(twitter_id):
@@ -42,9 +46,7 @@ def post_profile(data: ProfileData):
     try:
         data_dic = data.__dict__
         twitter_id = data_dic.pop('twitter_id')
-
         user_id = convert_twitter_id((twitter_id))
-
         user_count = session.query(User).filter_by(id=user_id).count()
         if user_count <= 0:
             user = User()
@@ -68,6 +70,10 @@ def post_profile(data: ProfileData):
             profile.ctrler = data.ctrler
             profile.message = data.message
             profile.team = data.team
+            profile.twitter_name = data.twitter_name
+            profile.twitter_url = data.twitter_url
+            profile.twitter_image_url = data.twitter_image_url
+            profile.available = data.available
         else:
             profile = Profile(**data_dic)
             profile.user_id = user_id

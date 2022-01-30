@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import Column
-from sqlalchemy.types import Integer, String, Text
+from sqlalchemy.types import Integer, String, Text, Boolean
 import app.config as config
 
 HOST = 'mysqldb'
@@ -38,6 +38,10 @@ class Profile(Base):
     ctrler = Column(Integer)
     message = Column(Text)
     team = Column(String(254))
+    twitter_name = Column(String(254))
+    twitter_url = Column(String(254))
+    twitter_image_url = Column(String(254))
+    available = Column(Boolean)
 
 
 def createSession():

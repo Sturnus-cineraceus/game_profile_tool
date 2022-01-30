@@ -127,6 +127,10 @@
                   max-rows="10"
                 ></b-form-textarea>
               </b-form-group>
+              <b-form-checkbox v-model="form.available" name="available" switch>
+                <p v-if="!form.available">非公開</p>
+                <p v-if="form.available">公開中</p>
+              </b-form-checkbox>
             </div>
             <b-button variant="success" @click="post_profile()"
               >書き込む</b-button
@@ -148,6 +152,7 @@ export default {
   data: () => ({
     user: null,
     overlay_show: false,
+    existsProfile: false,
     form: {
       twitter_id: null,
       epic_name: "",
@@ -161,6 +166,10 @@ export default {
       ctrler: 0,
       message: "",
       team: "",
+      twitter_name: "",
+      twitter_url: "",
+      twitter_image_url: "",
+      available: true,
     },
     sex_opt: [
       { value: "0", text: "" },
@@ -245,11 +254,16 @@ export default {
       .permitLogin()
       .then(async () => {
         this.user = this.$store.state.user.data;
-
+        this.$logger.debug("プロフィールデータ", this.user);
         let user_id = this.user.twitter_data.user_id;
-        let initData = await axios.get("/v1/api/profile/" + user_id);
-        this.$logger.debug(initData);
-        this.form = initData.data;
+        try {
+          let initData = await axios.get("/v1/api/profile/" + user_id);
+          this.$logger.debug("プロフィールデータ", initData);
+          this.form = initData.data;
+          this.existsProfile = true;
+        } catch (e) {
+          this.$logger.info("not found profile data");
+        }
         this.form.twitter_id = this.user.twitter_data.id;
       })
       .finally(() => {
