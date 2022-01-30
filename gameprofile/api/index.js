@@ -41,8 +41,15 @@ app.use(session({
 
 app.post("/profile", async (req, res) => {
     log.debug(req.body)
-    let resp = await axios.post("http://api/profile/",
-        req.body);
+    try {
+        let resp = await axios.post("http://api/profile/",
+            req.body);
+        res.status(201).send()
+    } catch (e) {
+        log.error(e.response.status)
+        log.error(e.response.statusText)
+        res.status(e.response.status).send(e.response.statusText);
+    }
 })
 
 // app.get('/', async (req, res) => {

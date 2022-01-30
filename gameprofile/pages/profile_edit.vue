@@ -250,6 +250,11 @@ export default {
       // };
 
       axios.post("/v1/api/profile", this.form).catch((e) => {
+        this.$bvToast.toast("保存に失敗しました", {
+          variant: "danger",
+          autoHideDelay: 5000,
+          solid: true,
+        });
         this.$logger.error(e);
       });
     },

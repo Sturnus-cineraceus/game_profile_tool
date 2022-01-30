@@ -20,7 +20,7 @@ class User(Base):
     __tablename__ = 'user'
     __table_args__ = ({"mysql_charset": "utf8mb4"})
     id = Column(String(40), primary_key=True)
-    twitter_id = Column(Integer, primary_key=True)
+    twitter_id = Column(String(40), primary_key=True)
 
 
 class Profile(Base):
@@ -49,7 +49,6 @@ def createSession():
 
 
 def init():
-    print("hoge")
     Base.metadata.create_all(engine)
 
 

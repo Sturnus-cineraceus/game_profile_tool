@@ -50,7 +50,7 @@ def post_username(tokenData: TokenData):
     auth.set_access_token(tokenData.token, tokenData.token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
     user = api.verify_credentials()
-    return {"user_name": user.name, "id": user.id, "screen_name": user.screen_name, "profile_image": user.profile_image_url_https}
+    return {"user_name": user.name, "id": user.id_str, "screen_name": user.screen_name, "profile_image": user.profile_image_url_https}
 
 
 @app.get("/accesstoken")
