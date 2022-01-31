@@ -1,6 +1,24 @@
 <template>
   <div>
     <Header></Header>
+    <div>
+      <b-container class="prof_cont">
+        <b-row>
+          <b-col cols="3">1 of 2</b-col>
+          <b-col>2 of 2</b-col>
+        </b-row>
+
+        <b-row>
+          <b-col cols="3">1 of 3</b-col>
+          <b-col>2 of 3</b-col>
+        </b-row>
+
+        <b-row>
+          <b-col cols="3">1 of 3</b-col>
+          <b-col>2 of 3</b-col>
+        </b-row>
+      </b-container>
+    </div>
     {{ profile_data }}
     <Footer></Footer>
   </div>
@@ -26,3 +44,14 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.prof_cont {
+  border: 1px solid warning;
+  .row {
+    border: 1px solid #000000;
+    // .col {
+    //   border: 1px solid #000000;
+    // }
+  }
+}
+</style>

@@ -92,4 +92,6 @@ def get_twitter_access_token(ot, ov):
         params={'oauth_verifier': ov}
     )
     access_token = dict(parse.parse_qsl(response.content.decode("utf-8")))
+    print("アクセストークン")
+    print(access_token)
     return {"at": access_token}

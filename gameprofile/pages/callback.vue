@@ -16,7 +16,7 @@ export default {
       params: { ot: ot, ov: ov },
     });
     console.log(resp);
-    window.location.href = "/";
+    this.$router.push({ path: "/" });
   },
 };
 </script>

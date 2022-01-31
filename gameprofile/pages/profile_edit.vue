@@ -151,7 +151,7 @@ export default {
   name: "ProfileEdit",
   data: () => ({
     user: null,
-    overlay_show: false,
+    overlay_show: true,
     existsProfile: false,
     form: {
       twitter_id: null,
@@ -262,6 +262,10 @@ export default {
           this.form = initData.data;
           this.existsProfile = true;
         } catch (e) {
+          this.$logger.debug(e);
+          if (e.response && e.response.status === 403) {
+            window.location.href = "/";
+          }
           this.$logger.info("not found profile data");
         }
         this.form.twitter_id = this.user.twitter_data.id;
