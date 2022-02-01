@@ -170,6 +170,7 @@ export default {
       twitter_url: "",
       twitter_image_url: "",
       available: true,
+      user_id: "",
     },
     sex_opt: [
       { value: "0", text: "" },
@@ -277,6 +278,7 @@ export default {
   methods: {
     post_profile: function () {
       this.overlay_show = true;
+      this.form.user_id = this.user.twitter_data.user_id;
       axios
         .post("/v1/api/profile", this.form)
         .then((res) => {

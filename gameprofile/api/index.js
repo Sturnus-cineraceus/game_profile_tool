@@ -7,7 +7,9 @@ app.use(express.json())
 //ロガー
 import * as log from 'loglevel'
 if (process.env.DEV_MODE == 1) {
+
     log.setLevel('trace')
+    log.debug("ログデバッグモード")
 } else {
     log.setLevel('info')
 }
@@ -49,7 +51,7 @@ app.use(session({
 // {
 //     "twitter_data": {
 //         "user_name": "𓆲領主𓆲", //名前
-//         "id": "99667392", //TwitterのID
+//         "id": "99667392", //TwitterのID 
 //         "screen_name": "glorificatio", //スクリーンネーム
 //         "profile_image": "https://pbs.twimg.com/profile_images/1260579052596989952/vMiO0mf0_normal.jpg",  //サムネイル
 //         "user_id": "<このシステム内でのID>"
@@ -93,6 +95,7 @@ app.post("/profile", async (req, res) => {
         return;
     }
     let session_userid = req.session.user_data.twitter_data.user_id;
+    log.debug(session_userid, req.body.user_id)
     if (req.body.user_id !== session_userid) {
         log.info("ログインしている人と違う人がユーザー情報を更新しようとしている")
         res.status(403).send()
