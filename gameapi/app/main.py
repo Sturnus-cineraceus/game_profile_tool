@@ -59,6 +59,7 @@ def post_username(tokenData: TokenData):
     auth.set_access_token(tokenData.token, tokenData.token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
     user = api.verify_credentials()
+    print(user)
     user_id = convert_twitter_id(user.id_str)
     session = createSession()
     try:
@@ -70,7 +71,7 @@ def post_username(tokenData: TokenData):
             session.add(userTable)
             session.commit()
         return {"user_name": user.name, "id": user.id_str,
-                "screen_name": user.screen_name, "profile_image": user.profile_image_url_https, "user_id": user_id}
+                "screen_name": user.screen_name, "profile_image": user.profile_image_url_https, "user_id": user_id, "twitter_url": "https://twitter.com/" + user.screen_name}
 
     except Exception as e:
         print(e)

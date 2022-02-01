@@ -40,6 +40,7 @@ class Profile(Base):
     team = Column(String(254))
     twitter_name = Column(String(254))
     twitter_url = Column(String(254))
+    twitter_screen_name = Column(String(254))
     twitter_image_url = Column(String(254))
     available = Column(Boolean)
 

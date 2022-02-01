@@ -22,6 +22,7 @@ class ProfileData(BaseModel):
     team: str
     twitter_name: str
     twitter_url: str
+    twitter_screen_name: str
     twitter_image_url: str
     available: bool
 
@@ -72,6 +73,7 @@ def post_profile(data: ProfileData):
             profile.team = data.team
             profile.twitter_name = data.twitter_name
             profile.twitter_url = data.twitter_url
+            profile.twitter_screen_name = data.twitter_screen_name
             profile.twitter_image_url = data.twitter_image_url
             profile.available = data.available
         else:

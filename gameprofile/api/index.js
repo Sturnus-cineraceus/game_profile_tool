@@ -7,7 +7,6 @@ app.use(express.json())
 //ロガー
 import * as log from 'loglevel'
 if (process.env.DEV_MODE == 1) {
-
     log.setLevel('trace')
     log.debug("ログデバッグモード")
 } else {
@@ -121,7 +120,6 @@ app.post("/profile", async (req, res) => {
 //公開情報として取得する
 //非公開は404を返す
 app.get("/user_profile/:user_id", async (req, res) => {
-    log.debug(req.body)
     let resp = await axios.get("http://api/user_profile/" + req.params.user_id);
     if (!resp.data) {
         res.status(404).send()
@@ -138,13 +136,11 @@ app.get("/user_profile/:user_id", async (req, res) => {
 /* 認証用API */
 //セッションに保存してある情報から本人情報を取得
 app.get('/user_name', async (req, res) => {
-    if (!req.session.oauth_token || !req.session.oauth_token_secret) {
-        return res.json({ twitter_data: { user_name: "ゲスト" }, twitter: false })
+    if (!req.session.user_data) {
+        res.json({ twitter_data: { user_name: "ゲスト" }, twitter: false })
+    } else {
+        res.json(req.session.user_data);
     }
-    let resp = await axios.post("http://api/user_name", { token: req.session.oauth_token, token_secret: req.session.oauth_token_secret });
-    log.debug(resp.data)
-    res.json({ twitter_data: resp.data, twitter: true })
-
 })
 
 //ログアウト。セッションを削除

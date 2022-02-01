@@ -167,6 +167,7 @@ export default {
       message: "",
       team: "",
       twitter_name: "",
+      twitter_screen_name: "",
       twitter_url: "",
       twitter_image_url: "",
       available: true,
@@ -270,6 +271,10 @@ export default {
           this.$logger.info("not found profile data");
         }
         this.form.twitter_id = this.user.twitter_data.id;
+        this.form.twitter_name = this.user.twitter_data.user_name;
+        this.form.twitter_screen_name = this.user.twitter_data.screen_name;
+        this.form.twitter_image_url = this.user.twitter_data.profile_image;
+        this.form.twitter_url = this.user.twitter_data.twitter_url;
       })
       .finally(() => {
         this.overlay_show = false;

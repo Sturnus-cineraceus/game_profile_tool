@@ -1,11 +1,11 @@
 <template>
   <div>
     <Header></Header>
-    <div>
+    <div class="profilem_main">
       <b-container class="prof_cont">
         <b-row>
-          <b-col cols="3">1 of 2</b-col>
-          <b-col>2 of 2</b-col>
+          <b-col cols="3">EpicID</b-col>
+          <b-col>{{ profile_data.epic_name }}</b-col>
         </b-row>
 
         <b-row>
@@ -45,13 +45,24 @@ export default {
 };
 </script>
 <style lang="scss">
-.prof_cont {
-  border: 1px solid warning;
-  .row {
-    border: 1px solid #000000;
-    // .col {
-    //   border: 1px solid #000000;
-    // }
+.profilem_main {
+  padding-top: 3em;
+  .prof_cont {
+    border: 1px solid warning;
+    .row {
+      background-color: rgba(23, 162, 184, 0.1);
+      margin-top: 0.8em;
+      border: 1px solid #000000;
+      .col {
+        padding-top: 2em;
+        padding-bottom: 1em;
+        border-left: 1px solid #000000;
+      }
+      .col-3 {
+        padding-top: 2em;
+        padding-bottom: 1em;
+      }
+    }
   }
 }
 </style>
