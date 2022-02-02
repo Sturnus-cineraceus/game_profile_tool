@@ -9,13 +9,22 @@
         </b-row>
 
         <b-row>
-          <b-col cols="3">1 of 3</b-col>
-          <b-col>2 of 3</b-col>
+          <b-col cols="3">Twitter</b-col>
+          <b-col>
+            <a
+              :href="profile_data.twitter_url"
+              target="_blank"
+              rel="noopener noreferrer"
+              >{{ profile_data.twitter_name }}</a
+            ></b-col
+          >
         </b-row>
 
         <b-row>
-          <b-col cols="3">1 of 3</b-col>
-          <b-col>2 of 3</b-col>
+          <b-col cols="3">メッセージ</b-col>
+          <b-col>
+            <pre>{{ profile_data.message }}</pre>
+          </b-col>
         </b-row>
       </b-container>
     </div>

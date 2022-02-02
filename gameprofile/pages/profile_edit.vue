@@ -30,6 +30,20 @@
                 ></b-form-input>
               </b-form-group>
 
+              <b-form-group
+                id="message_group"
+                label="ひとこと"
+                label-for="input-2"
+              >
+                <b-form-textarea
+                  id="textarea"
+                  v-model="form.message"
+                  placeholder="伝えたいことを書いてください"
+                  rows="3"
+                  max-rows="10"
+                ></b-form-textarea>
+              </b-form-group>
+
               <b-form-group id="sex_group" label="性別" label-for="input-2">
                 <b-form-select
                   v-model="form.sex"
@@ -114,19 +128,6 @@
                 ></b-form-select>
               </b-form-group>
 
-              <b-form-group
-                id="message_group"
-                label="ひとこと"
-                label-for="input-2"
-              >
-                <b-form-textarea
-                  id="textarea"
-                  v-model="form.message"
-                  placeholder="伝えたいことを書いてください"
-                  rows="3"
-                  max-rows="10"
-                ></b-form-textarea>
-              </b-form-group>
               <b-form-checkbox v-model="form.available" name="available" switch>
                 <p v-if="!form.available">非公開</p>
                 <p v-if="form.available">公開中</p>
