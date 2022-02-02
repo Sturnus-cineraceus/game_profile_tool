@@ -49,11 +49,15 @@
           <b-col>
             <p>{{ playmode }}</p>
             <p>{{ strength }}</p>
+            <p>{{ time }}</p>
+            <p>{{ device }}</p>
+            <p>{{ ctrler }}</p>
+            <p>{{ voice }}</p>
+            <p>{{ important }}</p>
           </b-col>
         </b-row>
       </b-container>
     </div>
-    {{ profile_data }}
     <Footer></Footer>
   </div>
 </template>
@@ -128,6 +132,81 @@ export default {
       }
       return "強さは、『" + stgtary[strg] + "』です";
     },
+    time: function () {
+      const timeary = ["", "早朝", "日中帯", "夕方", "夜", "深夜"];
+
+      let timenum = this.profile_data.time;
+      if (timenum === 0) {
+        return "";
+      }
+      return "いつも" + timeary[timenum] + "あたりで遊んでいます";
+    },
+
+    device: function () {
+      const dvary = [
+        "",
+        "Switch",
+        "PlayStation4",
+        "PlayStation5",
+        "XBox",
+        "PC",
+        "モバイル",
+      ];
+      let devicenum = this.profile_data.device;
+      if (devicenum === 0) {
+        return "";
+      }
+      return "使っているゲーム機は、" + dvary[devicenum] + "です";
+    },
+
+    ctrler: function () {
+      const ctary = ["", "パッド", "キーマウ"];
+      let ctrlernum = this.profile_data.ctrler;
+      if (ctrlernum === 0) {
+        return "";
+      }
+      return "使っているコントローラーは、" + ctary[ctrlernum] + "です";
+    },
+    voice: function () {
+      const vcary = [
+        "",
+        "VCできません",
+        "たまにできます",
+        "いつでもオンです",
+        "たまにできません",
+        "仲良くなったらできます",
+      ];
+      let vcnum = this.profile_data.vc;
+      if (vcnum === 0) {
+        return "";
+      }
+      return "ボイスチャットは" + vcary[vcnum];
+    },
+    important: function () {
+      const importantary = [
+        "",
+        "みんなと協力してバトルしたい",
+        "おしゃべりしたい ロビーにいるだけでもいい！",
+        "ビクロイしたい",
+        "たくさんキルしたい",
+        "珍しい戦い方を検証したい",
+        "フォートナイト考察のために島を回りたい",
+        "クエストをクリアしたい",
+        "動画映えするプレイを極めたい",
+        "アリーナポイントためたい",
+        "大会で良い成績を残したい",
+      ];
+
+      let importantnum = this.profile_data.important;
+      if (importantnum === 0) {
+        return "";
+      }
+      return (
+        "このゲームで重視していることは、『" +
+        importantary[importantnum] +
+        "』です"
+      );
+    },
   },
 };
 </script>
@@ -144,6 +223,7 @@ a.prf_link {
 }
 .profilem_main {
   padding-top: 3em;
+  padding-bottom: 3em;
   .prof_cont {
     border: 1px solid warning;
     .row {

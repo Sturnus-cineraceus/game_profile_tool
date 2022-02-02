@@ -226,7 +226,7 @@ export default {
       { value: "2", text: "たまにできます" },
       { value: "3", text: "いつでもオンです" },
       { value: "4", text: "たまにできません" },
-      { value: "5", text: "仲良くなったら" },
+      { value: "5", text: "仲良くなったらできます" },
     ],
     time_opt: [
       { value: "0", text: "" },
