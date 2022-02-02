@@ -15,7 +15,6 @@ export default {
     let resp = await axios.get("/v1/api/callback", {
       params: { ot: ot, ov: ov },
     });
-    console.log(resp);
     this.$router.push({ path: "/" });
   },
 };

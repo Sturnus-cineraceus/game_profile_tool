@@ -11,7 +11,6 @@ export default ({ store }, inject) => {
                 if (!store.state.user.data.twitter_data) {
                     let response = await axios.get(url);
                     let userData = response.data;
-                    console.log(userData)
                     store.commit("user/set", userData);
                 }
             } catch (e) {

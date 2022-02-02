@@ -6,24 +6,48 @@
         <b-row>
           <b-col cols="3">EpicID</b-col>
           <b-col>{{ profile_data.epic_name }}</b-col>
+          <b-col cols="3" class="twocol">性別</b-col>
+          <b-col>{{ sex }}</b-col>
         </b-row>
 
         <b-row>
           <b-col cols="3">Twitter</b-col>
           <b-col>
             <a
+              class="prf_link"
               :href="profile_data.twitter_url"
               target="_blank"
               rel="noopener noreferrer"
-              >{{ profile_data.twitter_name }}</a
-            ></b-col
-          >
+            >
+              <span class="tw_name">
+                <b-avatar
+                  class="tw_avt"
+                  :src="profile_img"
+                  size="4rem"
+                ></b-avatar>
+                <span class="tw_name">{{ profile_data.twitter_name }}</span>
+                <b-icon-box-arrow-up-right></b-icon-box-arrow-up-right> </span></a
+          ></b-col>
+        </b-row>
+
+        <b-row>
+          <b-col cols="3">チーム名</b-col>
+          <b-col>
+            <pre>{{ profile_data.team }}</pre>
+          </b-col>
         </b-row>
 
         <b-row>
           <b-col cols="3">メッセージ</b-col>
           <b-col>
             <pre>{{ profile_data.message }}</pre>
+          </b-col>
+        </b-row>
+
+        <b-row>
+          <b-col cols="3">いろんなこと</b-col>
+          <b-col>
+            <p>{{ playmode }}</p>
           </b-col>
         </b-row>
       </b-container>
@@ -51,9 +75,50 @@ export default {
       return;
     }
   },
+  computed: {
+    profile_img: function () {
+      return this.profile_data.twitter_image_url.replace("normal", "bigger");
+    },
+    sex: function () {
+      const sexobj = ["", "男性", "女性", "その他"];
+      return sexobj[this.profile_data.sex];
+    },
+    playmode: function () {
+      const plyary = [
+        "",
+        "ソロ",
+        "デュオ",
+        "トリオ",
+        "スクワッド",
+        "アリーナ ソロ",
+        "アリーナ デュオ",
+        "アリーナ トリオ",
+        "チームランブル",
+        "クリエイティブ",
+        "スクリム",
+        "その他",
+      ];
+
+      let ply = this.profile_data.play;
+      if (ply === 0) {
+        return "";
+      }
+      return "いつも遊んでいるゲームモードは、" + plyary[ply] + "です";
+    },
+  },
 };
 </script>
 <style lang="scss">
+a.prf_link {
+  // color: #6610f2;
+  font-weight: bold;
+}
+.tw_name {
+  .tw_avt,
+  .tw_name {
+    margin-right: 1em;
+  }
+}
 .profilem_main {
   padding-top: 3em;
   .prof_cont {
@@ -66,10 +131,14 @@ export default {
         padding-top: 2em;
         padding-bottom: 1em;
         border-left: 1px solid #000000;
+        background-color: var(--white);
       }
       .col-3 {
         padding-top: 2em;
         padding-bottom: 1em;
+      }
+      .twocol {
+        border-left: 1px solid #000000;
       }
     }
   }
