@@ -48,6 +48,7 @@
           <b-col cols="3">いろんなこと</b-col>
           <b-col>
             <p>{{ playmode }}</p>
+            <p>{{ strength }}</p>
           </b-col>
         </b-row>
       </b-container>
@@ -104,6 +105,28 @@ export default {
         return "";
       }
       return "いつも遊んでいるゲームモードは、" + plyary[ply] + "です";
+    },
+
+    strength: function () {
+      const stgtary = [
+        "",
+        "始めたばかり",
+        "初キル済み",
+        "壁や階段は出せる",
+        "ソロでビクロイはした",
+        "建築バトルできる",
+        "編集活用してバトルできる",
+        "10キル以上余裕",
+        "チャンピオンリーグ常連",
+        "競技に本気",
+        "プロとして生計を立てている",
+      ];
+
+      let strg = this.profile_data.strength;
+      if (strg === 0) {
+        return "";
+      }
+      return "強さは、『" + stgtary[strg] + "』です";
     },
   },
 };
