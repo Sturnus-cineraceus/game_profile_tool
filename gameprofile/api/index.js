@@ -112,6 +112,34 @@ app.post("/profile", async (req, res) => {
     }
 })
 
+app.delete("/profile", async (req, res) => {
+    log.debug(req.body)
+    res.status(201).send()
+
+    // if (!req.session.user_data) {
+    //     log.info("ログイン情報なし")
+    //     res.status(403).send()
+    //     return;
+    // }
+    // let session_userid = req.session.user_data.twitter_data.user_id;
+    // log.debug(session_userid, req.body.user_id)
+    // if (req.body.user_id !== session_userid) {
+    //     log.info("ログインしている人と違う人がユーザー情報を更新しようとしている")
+    //     res.status(403).send()
+    //     return;
+    // }
+
+    // try {
+    //     let resp = await axios.delete("http://api/profile/",
+    //         req.body);
+    //     res.status(201).send()
+    // } catch (e) {
+    //     log.error(e.response.status)
+    //     log.error(e.response.statusText)
+    //     res.status(e.response.status).send(e.response.statusText);
+    // }
+})
+
 /* 本人のプロフィール用API 終わり */
 
 /* 公開情報用API */

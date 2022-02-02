@@ -136,11 +136,17 @@
             <b-button variant="success" @click="post_profile()"
               >書き込む</b-button
             >
+
+            <b-button variant="danger" v-b-modal.delete-modal>削除</b-button>
           </b-card>
         </b-card-group>
       </b-overlay>
     </div>
     <Footer></Footer>
+    <!-- The modal -->
+    <b-modal id="delete-modal" @ok="delete_profile"
+      >削除してよろしいですか</b-modal
+    >
   </div>
 </template>
 <script>
@@ -282,6 +288,31 @@ export default {
       });
   },
   methods: {
+    delete_profile: function (bvModalEvt) {
+      console.log("dadada");
+      this.overlay_show = true;
+      axios
+        .delete("/v1/api/profile")
+        .then((res) => {
+          this.$bvToast.toast("削除しました", {
+            variant: "success",
+            autoHideDelay: 5000,
+            solid: true,
+          });
+          this.$router.push({ path: "/" });
+        })
+        .catch((e) => {
+          this.$bvToast.toast("削除に失敗しました", {
+            variant: "danger",
+            autoHideDelay: 5000,
+            solid: true,
+          });
+          this.$logger.error(e);
+        })
+        .finally(() => {
+          this.overlay_show = false;
+        });
+    },
     post_profile: function () {
       this.overlay_show = true;
       this.form.user_id = this.user.twitter_data.user_id;
