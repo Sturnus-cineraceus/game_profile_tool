@@ -112,32 +112,23 @@ app.post("/profile", async (req, res) => {
     }
 })
 
-app.delete("/profile", async (req, res) => {
-    log.debug(req.body)
-    res.status(201).send()
+app.delete("/profile/:user_id", async (req, res) => {
+    let session_userid = req.session.user_data.twitter_data.user_id;
+    log.debug(session_userid, req.params.user_id)
+    if (req.params.user_id !== session_userid) {
+        log.info("ログインしている人と違う人がユーザー情報を削除しようとしている")
+        res.status(403).send()
+        return;
+    }
 
-    // if (!req.session.user_data) {
-    //     log.info("ログイン情報なし")
-    //     res.status(403).send()
-    //     return;
-    // }
-    // let session_userid = req.session.user_data.twitter_data.user_id;
-    // log.debug(session_userid, req.body.user_id)
-    // if (req.body.user_id !== session_userid) {
-    //     log.info("ログインしている人と違う人がユーザー情報を更新しようとしている")
-    //     res.status(403).send()
-    //     return;
-    // }
-
-    // try {
-    //     let resp = await axios.delete("http://api/profile/",
-    //         req.body);
-    //     res.status(201).send()
-    // } catch (e) {
-    //     log.error(e.response.status)
-    //     log.error(e.response.statusText)
-    //     res.status(e.response.status).send(e.response.statusText);
-    // }
+    try {
+        await axios.delete("http://api/profile/" + req.params.user_id);
+    } catch (e) {
+        log.error(e)
+        res.status(500).send()
+        return
+    }
+    res.status(202).send()
 })
 
 /* 本人のプロフィール用API 終わり */

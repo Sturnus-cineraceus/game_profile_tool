@@ -5,7 +5,6 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get upgrade -y && \
     yarn global add @vue/cli && \
-    yarn global add @vue/cli-init && \
-    yarn build
+    yarn global add @vue/cli-init 
 
 

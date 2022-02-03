@@ -1,5 +1,7 @@
 version: '3'
-service:
+services:
+  api:
+    command: /start.sh
   front:
     command: yarn start
     environment:

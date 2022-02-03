@@ -73,7 +73,6 @@ export default {
       let res = await axios.get(
         "http://localhost:3000/v1/api/user_profile/" + route.params.user_id
       );
-      console.log(res.data);
       return { profile_data: res.data };
     } catch (e) {
       error({ statusCode: 404, message: "Profile not found" });

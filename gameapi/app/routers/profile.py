@@ -37,8 +37,22 @@ def get_profile(user_id):
     session = createSession()
     profile = session.query(
         Profile).filter_by(user_id=user_id).first()
-    print(profile)
+
     return profile
+
+
+@router.delete('/{user_id}', status_code=202)
+def delete_profile(user_id):
+    session = createSession()
+    try:
+        profile = session.query(
+            Profile).filter_by(user_id=user_id).first()
+        session.delete(profile)
+        session.commit()
+    except Exception as e:
+        print(e)
+        session.rollback()
+        return JSONResponse(status_code=500)
 
 
 @router.post('/', status_code=201)
@@ -83,7 +97,6 @@ def post_profile(data: ProfileData):
         session.commit()
         return
     except Exception as e:
-        print("dasdas")
         print(e)
         session.rollback()
         return JSONResponse(status_code=500)

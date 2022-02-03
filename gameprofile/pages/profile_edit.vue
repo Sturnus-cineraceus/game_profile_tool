@@ -265,6 +265,7 @@ export default {
         this.user = this.$store.state.user.data;
         this.$logger.debug("ユーザーデータ", this.user);
         let user_id = this.user.twitter_data.user_id;
+        this.form.user_id = user_id;
         try {
           let initData = await axios.get("/v1/api/profile/" + user_id);
           this.$logger.debug("プロフィールデータ", initData);
@@ -289,10 +290,9 @@ export default {
   },
   methods: {
     delete_profile: function (bvModalEvt) {
-      console.log("dadada");
       this.overlay_show = true;
       axios
-        .delete("/v1/api/profile")
+        .delete("/v1/api/profile/" + this.user.twitter_data.user_id)
         .then((res) => {
           this.$bvToast.toast("削除しました", {
             variant: "success",
@@ -315,7 +315,7 @@ export default {
     },
     post_profile: function () {
       this.overlay_show = true;
-      this.form.user_id = this.user.twitter_data.user_id;
+
       axios
         .post("/v1/api/profile", this.form)
         .then((res) => {
