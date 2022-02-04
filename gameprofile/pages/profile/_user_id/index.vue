@@ -2,58 +2,106 @@
   <div>
     <Header></Header>
     <div class="profilem_main">
-      <b-container class="prof_cont">
+      <b-container class="prof_card_container">
         <b-row>
-          <b-col cols="3">EpicID</b-col>
-          <b-col>{{ profile_data.epic_name }}</b-col>
-          <b-col cols="3" class="twocol">性別</b-col>
-          <b-col>{{ sex }}</b-col>
-        </b-row>
-
-        <b-row>
-          <b-col cols="3">Twitter</b-col>
-          <b-col>
-            <a
-              class="prf_link"
-              :href="profile_data.twitter_url"
-              target="_blank"
-              rel="noopener noreferrer"
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="EpicID"
+              class="text-center profile_card"
             >
-              <span class="tw_name">
-                <b-avatar
-                  class="tw_avt"
-                  :src="profile_img"
-                  size="4rem"
-                ></b-avatar>
-                <span class="tw_name">{{ profile_data.twitter_name }}</span>
-                <b-icon-box-arrow-up-right></b-icon-box-arrow-up-right> </span></a
-          ></b-col>
-        </b-row>
-
-        <b-row>
-          <b-col cols="3">チーム名</b-col>
-          <b-col>
-            <pre>{{ profile_data.team }}</pre>
+              <b-card-text>{{ profile_data.epic_name }}</b-card-text>
+            </b-card>
+          </b-col>
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="性別"
+              class="text-center profile_card"
+            >
+              <b-card-text>{{ sex }}</b-card-text>
+            </b-card>
           </b-col>
         </b-row>
-
         <b-row>
-          <b-col cols="3">メッセージ</b-col>
-          <b-col>
-            <pre>{{ profile_data.message }}</pre>
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="Twitter"
+              class="text-center profile_card"
+            >
+              <b-card-text>
+                <a
+                  class="prf_link"
+                  :href="profile_data.twitter_url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="tw_name">
+                    <b-avatar class="tw_avt" :src="profile_img" size="4rem"></b-avatar>
+                    <span class="tw_name">{{ profile_data.twitter_name }}</span>
+                    <b-icon-box-arrow-up-right></b-icon-box-arrow-up-right>
+                  </span>
+                </a>
+              </b-card-text>
+            </b-card>
+          </b-col>
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="チーム名"
+              class="text-center profile_card"
+            >
+              <b-card-text>{{ profile_data.team }}</b-card-text>
+            </b-card>
           </b-col>
         </b-row>
-
         <b-row>
-          <b-col cols="3">いろんなこと</b-col>
           <b-col>
-            <p>{{ playmode }}</p>
-            <p>{{ strength }}</p>
-            <p>{{ time }}</p>
-            <p>{{ device }}</p>
-            <p>{{ ctrler }}</p>
-            <p>{{ voice }}</p>
-            <p>{{ important }}</p>
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="メッセージ"
+              class="text-center profile_card"
+            >
+              <b-card-text>{{ profile_data.message }}</b-card-text>
+            </b-card>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="いろんなこと"
+              class="text-center profile_card"
+            >
+              <b-card-text>
+                <p>{{ playmode }}</p>
+                <p>{{ strength }}</p>
+                <p>{{ time }}</p>
+                <p>{{ device }}</p>
+                <p>{{ ctrler }}</p>
+                <p>{{ voice }}</p>
+                <p>{{ important }}</p>
+              </b-card-text>
+            </b-card>
           </b-col>
         </b-row>
       </b-container>
@@ -69,16 +117,13 @@ export default {
   components: { Header, Footer },
   name: "Profile",
   async asyncData({ route, error }) {
-  
-  let url = "/v1/api/user_profile/";
-  if(process.server) {
-     url = "http://localhost:3000" + url;
-  }
-  
+    let url = "/v1/api/user_profile/";
+    if (process.server) {
+      url = "http://localhost:3000" + url;
+    }
+
     try {
-      let res = await axios.get(
-        url + route.params.user_id
-      );
+      let res = await axios.get(url + route.params.user_id);
       return { profile_data: res.data };
     } catch (e) {
       error({ statusCode: 404, message: "Profile not found" });
@@ -229,25 +274,9 @@ a.prf_link {
 .profilem_main {
   padding-top: 3em;
   padding-bottom: 3em;
-  .prof_cont {
-    border: 1px solid warning;
-    .row {
-      background-color: rgba(23, 162, 184, 0.1);
-      margin-top: 0.8em;
-      border: 1px solid #000000;
-      .col {
-        padding-top: 2em;
-        padding-bottom: 1em;
-        border-left: 1px solid #000000;
-        background-color: var(--white);
-      }
-      .col-3 {
-        padding-top: 2em;
-        padding-bottom: 1em;
-      }
-      .twocol {
-        border-left: 1px solid #000000;
-      }
+  .prof_card_container {
+    .profile_card {
+      margin: 1em;
     }
   }
 }

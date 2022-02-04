@@ -16,7 +16,7 @@ def convert_twitter_id(twitter_id):
     return hashlib.md5(idsrc.encode('utf-8')).hexdigest()
 
 
-oauth_callback = "https://" + config.domain + "/callback"
+oauth_callback = config.protocol + config.domain + "/callback"
 twitter_base_url = 'https://api.twitter.com'
 authorization_endpoint = twitter_base_url + '/oauth/authenticate'
 request_token_endpoint = twitter_base_url + '/oauth/request_token'
@@ -59,7 +59,6 @@ def post_username(tokenData: TokenData):
     auth.set_access_token(tokenData.token, tokenData.token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
     user = api.verify_credentials()
-    print(user)
     user_id = convert_twitter_id(user.id_str)
     session = createSession()
     try:
@@ -93,6 +92,4 @@ def get_twitter_access_token(ot, ov):
         params={'oauth_verifier': ov}
     )
     access_token = dict(parse.parse_qsl(response.content.decode("utf-8")))
-    print("アクセストークン")
-    print(access_token)
     return {"at": access_token}
