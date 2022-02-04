@@ -69,9 +69,15 @@ export default {
   components: { Header, Footer },
   name: "Profile",
   async asyncData({ route, error }) {
+  
+  let url = "/v1/api/user_profile/";
+  if(process.server) {
+     url = "http://localhost:3000" + url;
+  }
+  
     try {
       let res = await axios.get(
-        "http://localhost:3000/v1/api/user_profile/" + route.params.user_id
+        url + route.params.user_id
       );
       return { profile_data: res.data };
     } catch (e) {
