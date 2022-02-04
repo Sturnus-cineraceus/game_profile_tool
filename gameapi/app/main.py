@@ -16,7 +16,7 @@ def convert_twitter_id(twitter_id):
     return hashlib.md5(idsrc.encode('utf-8')).hexdigest()
 
 
-oauth_callback = "http://" + config.domain + "/callback"
+oauth_callback = "https://" + config.domain + "/callback"
 twitter_base_url = 'https://api.twitter.com'
 authorization_endpoint = twitter_base_url + '/oauth/authenticate'
 request_token_endpoint = twitter_base_url + '/oauth/request_token'
