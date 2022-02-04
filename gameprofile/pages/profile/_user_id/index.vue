@@ -78,7 +78,9 @@
               header="メッセージ"
               class="text-center profile_card"
             >
-              <b-card-text>{{ profile_data.message }}</b-card-text>
+              <b-card-text>
+                <pre>{{ profile_data.message }}</pre>
+              </b-card-text>
             </b-card>
           </b-col>
         </b-row>
