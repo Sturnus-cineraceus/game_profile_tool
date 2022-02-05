@@ -138,6 +138,8 @@ export default {
   name: "Profile",
   head: function () {
     let desc = this.profile_data.twitter_name + "さんのフォトナのプロフィールです。";
+    let nowurl = this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/profile/" + this.profile_data.user_id;
+    let ogimg = this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/ogpimg.png"
     if (this.profile_data.message) {
       desc = this.profile_data.message.substr(0, 38);
     }
@@ -145,10 +147,12 @@ export default {
       title: this.profile_data.twitter_name + "さんのプロフ",
       meta: [
         { hid: 'description', name: 'description', content: this.profile_data.twitter_name + "さんのプロフ" },
-        { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
         { hid: 'twitter:title', name: 'twitter:title', content: this.profile_data.twitter_name + "さんのフォトナプロフ" },
         { hid: 'twitter:description', name: 'twitter:description', content: desc },
-        { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
+        { hid: 'twitter:card', name: 'twitter:card', content: 'Large-Summary-image' },
+        { hid: 'twitter:description', name: 'twitter:description', content: desc },
+        { hid: 'og:url', property: 'og:url', content: nowurl },
+        { hid: 'og:image', property: 'og:image', content: ogimg },
       ]
     }
   },
@@ -167,6 +171,7 @@ export default {
     }
   },
   computed: {
+
     profile_img: function () {
       return this.profile_data.twitter_image_url.replace("normal", "bigger");
     },

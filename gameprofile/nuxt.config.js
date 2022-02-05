@@ -50,6 +50,8 @@ export default {
     host: '0'
   },
   publicRuntimeConfig: {
-    DEV_MODE: process.env.DEV_MODE
+    DEV_MODE: process.env.DEV_MODE,
+    DOMAIN: process.env.DOMAIN,
+    HTTP_PROTOCOL: process.env.HTTP_PROTOCOL
   }
 }
