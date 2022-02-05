@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <Header></Header>
     <div class="profilem_main">
       <b-container class="prof_card_container">
@@ -107,6 +107,24 @@
           </b-col>
         </b-row>
       </b-container>
+
+      <div class="to_main_area">
+        <b-card
+          header-bg-variant="primary"
+          border-variant="info"
+          title="フォートナイトの履歴書"
+          tag="article"
+          class="text-center"
+        >
+          <b-card-text>
+            <article class="introduction">フォートナイトの強さプレイスタイルを登録して、フレンドづくりの手助けをします</article>
+          </b-card-text>
+
+          <b-button variant="success" @click="$router.push({ path: '/' })">
+            <b-icon-pencil-square></b-icon-pencil-square>あなたもプロフィール編集
+          </b-button>
+        </b-card>
+      </div>
     </div>
     <Footer></Footer>
   </div>
@@ -279,6 +297,12 @@ export default {
 };
 </script>
 <style lang="scss">
+div.main {
+  width: 100%;
+  div.profilem_main {
+    width: 100%;
+  }
+}
 a.prf_link {
   // color: #6610f2;
   font-weight: bold;
@@ -287,6 +311,15 @@ a.prf_link {
   .tw_avt,
   .tw_name {
     margin-right: 1em;
+  }
+}
+.to_main_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }
 }
 .profilem_main {
