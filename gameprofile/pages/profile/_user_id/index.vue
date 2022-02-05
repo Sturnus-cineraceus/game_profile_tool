@@ -118,6 +118,22 @@ import axios from "axios";
 export default {
   components: { Header, Footer },
   name: "Profile",
+  head: function () {
+    let desc = this.profile_data.twitter_name + "さんのフォトナのプロフィールです。";
+    if (this.profile_data.message) {
+      desc = this.profile_data.message.substr(0, 38);
+    }
+    return {
+      title: this.profile_data.twitter_name + "さんのプロフ",
+      meta: [
+        { hid: 'description', name: 'description', content: this.profile_data.twitter_name + "さんのプロフ" },
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
+        { hid: 'twitter:title', name: 'twitter:title', content: this.profile_data.twitter_name + "さんのフォトナプロフ" },
+        { hid: 'twitter:description', name: 'twitter:description', content: desc },
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
+      ]
+    }
+  },
   async asyncData({ route, error }) {
     let url = "/v1/api/user_profile/";
     if (process.server) {

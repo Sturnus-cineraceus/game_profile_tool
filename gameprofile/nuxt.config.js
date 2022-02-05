@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'ゲームの履歴書',
+    titleTemplate: '%s | フォトナプロフ',
     htmlAttrs: {
       lang: 'ja'
     },

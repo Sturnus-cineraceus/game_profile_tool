@@ -3,19 +3,11 @@
     <Header></Header>
     <div class="contents">
       <div class="main_button_area">
-        <b-button
-          v-if="!login"
-          variant="primary"
-          @click="$router.push({ path: '/login' })"
-        >
+        <b-button v-if="!login" variant="primary" @click="$router.push({ path: '/login' })">
           <b-icon-twitter></b-icon-twitter>ツイッターでログイン
         </b-button>
 
-        <b-button
-          v-if="login"
-          variant="success"
-          @click="$router.push({ path: '/profile_edit' })"
-        >
+        <b-button v-if="login" variant="success" @click="$router.push({ path: '/profile_edit' })">
           <b-icon-pencil-square></b-icon-pencil-square>プロフィール編集
         </b-button>
       </div>
@@ -30,7 +22,7 @@
 
           <a href="#" class="card-link">Card link</a>
           <b-link href="#" class="card-link">Another link</b-link>
-        </b-card> -->
+      </b-card>-->
     </div>
     <Footer></Footer>
   </div>
@@ -43,6 +35,9 @@ export default {
   components: { Header, Footer },
   name: "IndexPage",
   data: () => ({ text: "", user: {}, userName: "", login: false }),
+  head: function () {
+    return { title: "フォトナプロフ", titleTemplate: "" }
+  },
   async mounted() {
     this.$logger.debug("マウント");
     this.$authUtil.verifyAuth().then(() => {
@@ -65,7 +60,9 @@ div.main {
   justify-content: center;
   align-items: center;
   button {
-    padding: 1em 5em;
+    @media screen and (min-width: 480px) {
+      padding: 1em 5em;
+    }
     margin: 5em;
   }
 }
