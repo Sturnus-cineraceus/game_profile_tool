@@ -141,16 +141,15 @@ export default {
     let nowurl = this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/profile/" + this.profile_data.user_id;
     let ogimg = this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/ogpimg.png"
     if (this.profile_data.message) {
-      desc = this.profile_data.message.substr(0, 38);
+      desc = this.profile_data.message.substr(0, 80);
     }
     return {
       title: this.profile_data.twitter_name + "さんのプロフ",
       meta: [
-        { hid: 'description', name: 'description', content: this.profile_data.twitter_name + "さんのプロフ" },
+        { hid: 'description', name: 'description', content: desc },
         { hid: 'twitter:title', name: 'twitter:title', content: this.profile_data.twitter_name + "さんのフォトナプロフ" },
         { hid: 'twitter:description', name: 'twitter:description', content: desc },
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { hid: 'twitter:description', name: 'twitter:description', content: desc },
         { hid: 'og:url', property: 'og:url', content: nowurl },
         { hid: 'og:image', property: 'og:image', content: ogimg },
       ]
