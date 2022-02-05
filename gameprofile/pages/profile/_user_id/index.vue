@@ -149,7 +149,7 @@ export default {
         { hid: 'description', name: 'description', content: this.profile_data.twitter_name + "さんのプロフ" },
         { hid: 'twitter:title', name: 'twitter:title', content: this.profile_data.twitter_name + "さんのフォトナプロフ" },
         { hid: 'twitter:description', name: 'twitter:description', content: desc },
-        { hid: 'twitter:card', name: 'twitter:card', content: 'Large-Summary-image' },
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
         { hid: 'twitter:description', name: 'twitter:description', content: desc },
         { hid: 'og:url', property: 'og:url', content: nowurl },
         { hid: 'og:image', property: 'og:image', content: ogimg },
