@@ -83,6 +83,9 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 export default {
     components: { Header, Footer },
+    head: function () {
+        return { title: "各種ポリシー" }
+    }
 }
 </script>
 <style lang="scss">

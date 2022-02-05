@@ -7,7 +7,7 @@
         </b-col>
         <b-col cols="4" md="3">
           <div>
-            <nuxt-link to="/info/readme">各ポリシー</nuxt-link>
+            <nuxt-link to="/info/readme">各種ポリシー</nuxt-link>
           </div>
         </b-col>
       </b-row>

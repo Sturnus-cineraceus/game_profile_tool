@@ -291,7 +291,7 @@ a.prf_link {
 }
 .profilem_main {
   padding-top: 3em;
-  padding-bottom: 3em;
+  padding-bottom: 6em;
   .prof_card_container {
     .profile_card {
       margin: 1em;
