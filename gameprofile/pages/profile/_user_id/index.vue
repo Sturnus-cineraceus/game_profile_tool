@@ -2,7 +2,7 @@
   <div class="main">
     <Header></Header>
     <div class="profilem_main">
-      <a
+      <!-- <a
         href="https://twitter.com/share?ref_src=twsrc%5Etfw"
         class="twitter-share-button"
         data-size="large"
@@ -13,7 +13,7 @@
         async
         src="https://platform.twitter.com/widgets.js"
         charset="utf-8"
-      ></script>
+      ></script> -->
       <b-container class="prof_card_container">
         <b-row>
           <b-col cols="12" md="6">
