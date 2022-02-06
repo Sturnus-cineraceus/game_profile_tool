@@ -11,16 +11,35 @@
           img-bottom
         >
           <b-card-text>
-            <article class="introduction">フォートナイトの強さプレイスタイルを登録して、フレンドづくりの手助けをします</article>
+            <article class="introduction">
+              フォートナイトの強さプレイスタイルを登録して、フレンドづくりの手助けをします
+            </article>
           </b-card-text>
 
-          <b-button v-if="!login" variant="primary" @click="$router.push({ path: '/login' })">
-            <b-icon-twitter></b-icon-twitter>ツイッターでログイン
-          </b-button>
+          <div v-if="!login">
+            <b-button
+              variant="primary"
+              @click="$router.push({ path: '/login' })"
+            >
+              <b-icon-twitter></b-icon-twitter>ツイッターでログイン
+            </b-button>
+          </div>
+          <div v-if="login">
+            <b-button
+              variant="success"
+              @click="$router.push({ path: '/profile_edit' })"
+            >
+              <b-icon-pencil-square></b-icon-pencil-square>プロフィール編集
+            </b-button>
 
-          <b-button v-if="login" variant="success" @click="$router.push({ path: '/profile_edit' })">
-            <b-icon-pencil-square></b-icon-pencil-square>プロフィール編集
-          </b-button>
+            <b-button
+              variant="info"
+              @click="$router.push({ path: '/profile_edit' })"
+            >
+              <b-icon-journal-richtext></b-icon-journal-richtext
+              >プロフィールを見る
+            </b-button>
+          </div>
         </b-card>
       </div>
     </div>
@@ -65,8 +84,9 @@ div.main {
   button {
     @media screen and (min-width: 630px) {
       padding: 1em 5em;
+      margin: 2.5em 1em;
     }
-    margin: 5em;
+    margin: 2.5em 1em;
   }
 }
 </style>

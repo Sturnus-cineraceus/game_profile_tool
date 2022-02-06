@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer class="fixed-bottom">
+    <footer>
       <b-row align-h="start">
         <b-col cols="6" md="3">
           <div>Copyright 2022 glorificatio.</div>
