@@ -52,7 +52,18 @@ export default {
   name: "IndexPage",
   data: () => ({ text: "", user: {}, userName: "", login: false }),
   head: function () {
-    return { title: "フォトナプロフ", titleTemplate: "" };
+    return {
+      title: "フォトナプロフ",
+      titleTemplate: "",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "フォートナイトのプレイヤーがプロフィール（履歴書）を書いて共有できるサイト。",
+        },
+      ],
+    };
   },
   async mounted() {
     this.$authUtil.verifyAuth().then(() => {
