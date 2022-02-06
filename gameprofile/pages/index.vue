@@ -17,13 +17,19 @@
           </b-card-text>
 
           <div v-if="!login">
-            <b-button class="top_btn" variant="primary" to="/login">
-              <b-icon-twitter></b-icon-twitter>ツイッターでログイン
+            <b-button
+              variant="twitter_login"
+              class="top_btn twitter_login"
+              to="/login"
+            >
+              <b-icon-twitter class="twicon"></b-icon-twitter
+              ><span class="loginword">ツイッターでログイン</span>
             </b-button>
           </div>
           <div v-if="login">
             <b-button class="top_btn" variant="success" to="/profile_edit">
-              <b-icon-pencil-square></b-icon-pencil-square>プロフィール編集
+              <b-icon-pencil-square></b-icon-pencil-square
+              ><span>プロフィール編集</span>
             </b-button>
 
             <b-button class="top_btn" variant="info" :to="myprof">
@@ -63,6 +69,23 @@ export default {
 };
 </script>
 <style lang="scss">
+.twitter_login {
+  background-color: #1da1f2;
+  color: #ffffff;
+  .twicon {
+    width: 32px;
+    height: 32px;
+  }
+  span.loginword {
+    padding-left: 1em;
+  }
+}
+.twitter_login:hover {
+  background-color: #1da1f2;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
 div.main {
   width: 100%;
   div.contents {

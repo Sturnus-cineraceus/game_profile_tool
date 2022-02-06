@@ -2,6 +2,18 @@
   <div class="main">
     <Header></Header>
     <div class="profilem_main">
+      <a
+        href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+        class="twitter-share-button"
+        data-size="large"
+        data-show-count="false"
+        >Tweet</a
+      >
+      <script
+        async
+        src="https://platform.twitter.com/widgets.js"
+        charset="utf-8"
+      ></script>
       <b-container class="prof_card_container">
         <b-row>
           <b-col cols="12" md="6">
@@ -47,7 +59,11 @@
                   rel="noopener noreferrer"
                 >
                   <span class="tw_name">
-                    <b-avatar class="tw_avt" :src="profile_img" size="4rem"></b-avatar>
+                    <b-avatar
+                      class="tw_avt"
+                      :src="profile_img"
+                      size="4rem"
+                    ></b-avatar>
                     <span class="tw_name">{{ profile_data.twitter_name }}</span>
                     <b-icon-box-arrow-up-right></b-icon-box-arrow-up-right>
                   </span>
@@ -117,11 +133,14 @@
           class="text-center"
         >
           <b-card-text>
-            <article class="introduction">フォートナイトの強さプレイスタイルを登録して、フレンドづくりの手助けをします</article>
+            <article class="introduction">
+              フォートナイトの強さプレイスタイルを登録して、フレンドづくりの手助けをします
+            </article>
           </b-card-text>
 
           <b-button variant="success" @click="$router.push({ path: '/' })">
-            <b-icon-pencil-square></b-icon-pencil-square>あなたもプロフィール編集
+            <b-icon-pencil-square></b-icon-pencil-square
+            >あなたもプロフィール編集
           </b-button>
         </b-card>
       </div>
@@ -137,23 +156,41 @@ export default {
   components: { Header, Footer },
   name: "Profile",
   head: function () {
-    let desc = this.profile_data.twitter_name + "さんのフォトナのプロフィールです。";
-    let nowurl = this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/profile/" + this.profile_data.user_id;
-    let ogimg = this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/ogpimg.png"
+    let desc =
+      this.profile_data.twitter_name + "さんのフォトナのプロフィールです。";
+    let nowurl =
+      this.$config.HTTP_PROTOCOL +
+      this.$config.DOMAIN +
+      "/profile/" +
+      this.profile_data.user_id;
+    let ogimg =
+      this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/ogpimg.png";
     if (this.profile_data.message) {
       desc = this.profile_data.message.substr(0, 80);
     }
     return {
       title: this.profile_data.twitter_name + "さんのプロフ",
       meta: [
-        { hid: 'description', name: 'description', content: desc },
-        { hid: 'twitter:title', name: 'twitter:title', content: this.profile_data.twitter_name + "さんのフォトナプロフ" },
-        { hid: 'twitter:description', name: 'twitter:description', content: desc },
-        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { hid: 'og:url', property: 'og:url', content: nowurl },
-        { hid: 'og:image', property: 'og:image', content: ogimg },
-      ]
-    }
+        { hid: "description", name: "description", content: desc },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: this.profile_data.twitter_name + "さんのフォトナプロフ",
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: desc,
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+        { hid: "og:url", property: "og:url", content: nowurl },
+        { hid: "og:image", property: "og:image", content: ogimg },
+      ],
+    };
   },
   async asyncData({ route, error }) {
     let url = "/v1/api/user_profile/";
@@ -170,7 +207,6 @@ export default {
     }
   },
   computed: {
-
     profile_img: function () {
       return this.profile_data.twitter_image_url.replace("normal", "bigger");
     },
