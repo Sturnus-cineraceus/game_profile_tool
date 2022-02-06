@@ -17,25 +17,16 @@
           </b-card-text>
 
           <div v-if="!login">
-            <b-button
-              variant="primary"
-              @click="$router.push({ path: '/login' })"
-            >
+            <b-button class="top_btn" variant="primary" to="/login">
               <b-icon-twitter></b-icon-twitter>ツイッターでログイン
             </b-button>
           </div>
           <div v-if="login">
-            <b-button
-              variant="success"
-              @click="$router.push({ path: '/profile_edit' })"
-            >
+            <b-button class="top_btn" variant="success" to="/profile_edit">
               <b-icon-pencil-square></b-icon-pencil-square>プロフィール編集
             </b-button>
 
-            <b-button
-              variant="info"
-              @click="$router.push({ path: '/profile_edit' })"
-            >
+            <b-button class="top_btn" variant="info" :to="myprof">
               <b-icon-journal-richtext></b-icon-journal-richtext
               >プロフィールを見る
             </b-button>
@@ -58,12 +49,16 @@ export default {
     return { title: "フォトナプロフ", titleTemplate: "" };
   },
   async mounted() {
-    this.$logger.debug("マウント");
     this.$authUtil.verifyAuth().then(() => {
       this.user = this.$store.state.user.data;
       this.userName = this.user.twitter_data.user_name;
       this.login = this.user.twitter;
     });
+  },
+  computed: {
+    myprof: function () {
+      return "/profile/" + this.user.twitter_data.user_id;
+    },
   },
 };
 </script>
@@ -81,7 +76,7 @@ div.main {
   .introduction {
     margin-top: 3em;
   }
-  button {
+  .top_btn {
     @media screen and (min-width: 630px) {
       padding: 1em 5em;
       margin: 2.5em 1em;
