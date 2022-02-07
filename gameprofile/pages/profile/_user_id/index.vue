@@ -138,7 +138,7 @@
             </article>
           </b-card-text>
 
-          <b-button variant="success" @click="$router.push({ path: '/' })">
+          <b-button variant="success" to="/">
             <b-icon-pencil-square></b-icon-pencil-square
             >あなたもプロフィール編集
           </b-button>

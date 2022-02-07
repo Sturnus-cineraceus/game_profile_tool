@@ -1,8 +1,10 @@
 <template>
-  <div class="container has-text-centered mt-6">
-    <div>
-      <h2 class="subtitle">Twitterと連携します</h2>
-    </div>
+  <div class="container">
+    <b-overlay class="base" :show="true">
+      <div>
+        <h2 class="subtitle">Twitterと連携します</h2>
+      </div>
+    </b-overlay>
   </div>
 </template>
 
@@ -19,3 +21,10 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.base {
+  width: 100%;
+  margin: 0 calc(50% - 50vw);
+  height: 100vh;
+}
+</style>

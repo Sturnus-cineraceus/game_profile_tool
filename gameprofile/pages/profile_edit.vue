@@ -6,15 +6,35 @@
         <b-card-group deck>
           <b-card title="基本プロフィール">
             <div class="card_contents">
-              <b-form-group id="epic_name_group" label="EpicID:" label-for="input-2">
-                <b-form-input id="team" v-model="form.epic_name" required></b-form-input>
+              <b-form-group
+                id="epic_name_group"
+                label="EpicID:"
+                label-for="input-2"
+              >
+                <b-form-input
+                  id="team"
+                  v-model="form.epic_name"
+                  required
+                ></b-form-input>
               </b-form-group>
 
-              <b-form-group id="team_group" label="チーム名" label-for="input-2">
-                <b-form-input id="team" v-model="form.team" required></b-form-input>
+              <b-form-group
+                id="team_group"
+                label="チーム名"
+                label-for="input-2"
+              >
+                <b-form-input
+                  id="team"
+                  v-model="form.team"
+                  required
+                ></b-form-input>
               </b-form-group>
 
-              <b-form-group id="message_group" label="ひとこと" label-for="input-2">
+              <b-form-group
+                id="message_group"
+                label="ひとこと"
+                label-for="input-2"
+              >
                 <b-form-textarea
                   id="textarea"
                   v-model="form.message"
@@ -25,35 +45,87 @@
               </b-form-group>
 
               <b-form-group id="sex_group" label="性別" label-for="input-2">
-                <b-form-select v-model="form.sex" :options="sex_opt"></b-form-select>
+                <b-form-select
+                  v-model="form.sex"
+                  :options="sex_opt"
+                ></b-form-select>
               </b-form-group>
 
-              <b-form-group id="strength_group" label="強さ" label-for="input-2">
-                <b-form-select v-model="form.strength" :options="strength_opt"></b-form-select>
+              <b-form-group
+                id="strength_group"
+                label="強さ"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.strength"
+                  :options="strength_opt"
+                ></b-form-select>
               </b-form-group>
 
-              <b-form-group id="play_group" label="よく遊んでるモード" label-for="input-2">
-                <b-form-select v-model="form.play" :options="play_opt"></b-form-select>
+              <b-form-group
+                id="play_group"
+                label="よく遊んでるモード"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.play"
+                  :options="play_opt"
+                ></b-form-select>
               </b-form-group>
 
-              <b-form-group id="important_group" label="ゲームで目指したいこと" label-for="input-2">
-                <b-form-select v-model="form.important" :options="important_opt"></b-form-select>
+              <b-form-group
+                id="important_group"
+                label="ゲームで目指したいこと"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.important"
+                  :options="important_opt"
+                ></b-form-select>
               </b-form-group>
 
-              <b-form-group id="time_group" label="遊んでる時間" label-for="input-2">
-                <b-form-select v-model="form.time" :options="time_opt"></b-form-select>
+              <b-form-group
+                id="time_group"
+                label="遊んでる時間"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.time"
+                  :options="time_opt"
+                ></b-form-select>
               </b-form-group>
 
-              <b-form-group id="ctrler_group" label="コントローラー" label-for="input-2">
-                <b-form-select v-model="form.ctrler" :options="ctrler_opt"></b-form-select>
+              <b-form-group
+                id="ctrler_group"
+                label="コントローラー"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.ctrler"
+                  :options="ctrler_opt"
+                ></b-form-select>
               </b-form-group>
 
-              <b-form-group id="device_group" label="デバイス" label-for="input-2">
-                <b-form-select v-model="form.device" :options="device_opt"></b-form-select>
+              <b-form-group
+                id="device_group"
+                label="デバイス"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.device"
+                  :options="device_opt"
+                ></b-form-select>
               </b-form-group>
 
-              <b-form-group id="vc_group" label="ボイスチャット" label-for="input-2">
-                <b-form-select v-model="form.vc" :options="vc_opt"></b-form-select>
+              <b-form-group
+                id="vc_group"
+                label="ボイスチャット"
+                label-for="input-2"
+              >
+                <b-form-select
+                  v-model="form.vc"
+                  :options="vc_opt"
+                ></b-form-select>
               </b-form-group>
 
               <b-form-checkbox v-model="form.available" name="available" switch>
@@ -61,16 +133,26 @@
                 <p v-if="form.available">公開中</p>
               </b-form-checkbox>
             </div>
-            <b-button variant="success" @click="post_profile()">書き込む</b-button>
-
-            <b-button variant="danger" v-b-modal.delete-modal>削除</b-button>
+            <div class="edit_btns">
+              <b-button variant="danger" class="del_btn" v-b-modal.delete-modal
+                >削除</b-button
+              >
+              <b-button
+                variant="success"
+                class="write_btn"
+                @click="post_profile()"
+                >書き込む</b-button
+              >
+            </div>
           </b-card>
         </b-card-group>
       </b-overlay>
     </div>
     <Footer></Footer>
     <!-- The modal -->
-    <b-modal id="delete-modal" @ok="delete_profile">削除してよろしいですか</b-modal>
+    <b-modal id="delete-modal" @ok="delete_profile"
+      >削除してよろしいですか</b-modal
+    >
   </div>
 </template>
 <script>
@@ -81,7 +163,7 @@ export default {
   components: { Header, Footer },
   name: "ProfileEdit",
   head: function () {
-    return { title: "自分のことを書こう" }
+    return { title: "自分のことを書こう" };
   },
   data: () => ({
     user: null,
@@ -280,6 +362,19 @@ div.contents {
     select {
       max-width: 25em;
     }
+  }
+}
+div.edit_btns {
+  .btn {
+    margin-top: 0.5em;
+    margin-left: 0.5em;
+    margin-right: 2.5em;
+    padding: 1em;
+    font-size: 2em;
+  }
+  .del_btn {
+    margin-left: 1em;
+    font-size: 1em;
   }
 }
 </style>

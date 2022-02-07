@@ -1,8 +1,9 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand @click="$router.push({ path: '/' })" href="#"
-        >フォトナプロフ プレα</b-navbar-brand
+      <b-navbar-brand to="/">
+        <img src="/img/logo.svg" class="header_logo" />
+        フォトナプロフ プレα</b-navbar-brand
       >
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -12,24 +13,11 @@
             <b-avatar variant="info" :src="img" class="mr-3"></b-avatar>
           </b-nav-text>
 
-          <b-nav-item
-            @click="goProfile"
-            v-if="inLogin && existsPublicProfile"
-            href="#"
+          <b-nav-item v-if="inLogin && existsPublicProfile" :to="my_profile"
             >自分のプロフィール表示</b-nav-item
           >
-          <b-nav-item
-            v-if="!inLogin"
-            @click="$router.push({ path: '/login' })"
-            href="#"
-            >ログイン</b-nav-item
-          >
-          <b-nav-item
-            v-if="inLogin"
-            @click="$router.push({ path: '/logout' })"
-            href="#"
-            >ログアウト</b-nav-item
-          >
+          <b-nav-item v-if="!inLogin" to="/login">ログイン</b-nav-item>
+          <b-nav-item v-if="inLogin" to="/logout">ログアウト</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -45,10 +33,10 @@ export default {
     inLogin: false,
     existsPublicProfile: false,
   }),
-  methods: {
-    goProfile: function () {
+  computed: {
+    my_profile: function () {
       let user_id = this.user.twitter_data.user_id;
-      this.$router.push({ path: "/profile/" + user_id });
+      return "/profile/" + user_id;
     },
   },
   mounted() {
@@ -73,3 +61,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.header_logo {
+  width: 4em;
+}
+</style>

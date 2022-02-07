@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <Header></Header>
-    <div class="contents">
+    <div class="toppage_contents">
       <div class="main_button_area">
         <b-card
           title="フォートナイトの履歴書"
@@ -99,8 +99,9 @@ export default {
 
 div.main {
   width: 100%;
-  div.contents {
+  div.toppage_contents {
     width: 100%;
+    padding-top: 5em;
   }
 }
 .main_button_area {
