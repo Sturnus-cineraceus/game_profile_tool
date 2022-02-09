@@ -63,6 +63,10 @@ export default {
 </script>
 <style lang="scss">
 .header_logo {
-  width: 4em;
+  @media screen and (min-width: 630px) {
+    width: 4em;
+  }
+
+  width: 1.5em;
 }
 </style>

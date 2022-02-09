@@ -14,6 +14,9 @@
         src="https://platform.twitter.com/widgets.js"
         charset="utf-8"
       ></script> -->
+      <div class="update_time_parts">
+        <small>更新日: {{ update_time }}</small>
+      </div>
       <b-container class="prof_card_container">
         <b-row>
           <b-col cols="12" md="6">
@@ -207,6 +210,10 @@ export default {
     }
   },
   computed: {
+    update_time: function () {
+      let dt = new Date(this.profile_data.update_time);
+      return this.$dateFns.format(dt, "yyyy/MM/dd hh:mm ");
+    },
     profile_img: function () {
       return this.profile_data.twitter_image_url.replace("normal", "bigger");
     },
@@ -370,5 +377,11 @@ a.prf_link {
       margin: 1em;
     }
   }
+}
+.update_time_parts {
+  width: 100%;
+  text-align: right;
+  padding-right: 5em;
+  padding-bottom: 0.5em;
 }
 </style>

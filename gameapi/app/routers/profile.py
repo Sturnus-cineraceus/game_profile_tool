@@ -3,6 +3,7 @@ from fastapi import APIRouter, status
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 import hashlib
+import datetime
 
 router = APIRouter()
 
@@ -69,6 +70,7 @@ def post_profile(data: ProfileData):
             user.twitter_id = twitter_id
             session.add(user)
 
+        dt_now = datetime.datetime.now()
         profile_count = session.query(
             Profile).filter_by(user_id=user_id).count()
         if profile_count > 0:
@@ -90,9 +92,11 @@ def post_profile(data: ProfileData):
             profile.twitter_screen_name = data.twitter_screen_name
             profile.twitter_image_url = data.twitter_image_url
             profile.available = data.available
+            profile.update_time = dt_now
         else:
             profile = Profile(**data_dic)
             profile.user_id = user_id
+            profile.update_time = dt_now
             session.add(profile)
         session.commit()
         return
