@@ -31,7 +31,6 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/date-fns',
   ],
   serverMiddleware: ['~/api'],
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -39,7 +38,8 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/dayjs'
   ],
   bootstrapVue: {
     icons: true
@@ -54,5 +54,14 @@ export default {
     DEV_MODE: process.env.DEV_MODE,
     DOMAIN: process.env.DOMAIN,
     HTTP_PROTOCOL: process.env.HTTP_PROTOCOL
+  }
+  , dayjs: {
+    locales: ['en', 'ja'],
+    defaultLocale: 'ja',
+    defaultTimeZone: 'Asia/Tokyo',
+    plugins: [
+      'utc', // import 'dayjs/plugin/utc'
+      'timezone' // import 'dayjs/plugin/timezone'
+    ] // Your Day.js plugin
   }
 }

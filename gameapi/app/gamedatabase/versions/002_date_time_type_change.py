@@ -1,6 +1,6 @@
 from sqlalchemy import *
 from migrate import *
-
+from sqlalchemy.dialects.mysql import TIMESTAMP as Timestamp
 meta = MetaData()
 
 
@@ -9,7 +9,8 @@ def upgrade(migrate_engine):
     # migrate_engine to your metadata
     meta.bind = migrate_engine
     profile = Table('profile', meta, autoload=True)
-    update = Column('update_time', DateTime)
+    profile.c.update_time.drop()
+    update = Column('update_time', Timestamp)
     update.create(profile)
 
 
@@ -18,3 +19,5 @@ def downgrade(migrate_engine):
     meta.bind = migrate_engine
     profile = Table('profile', meta, autoload=True)
     profile.c.update_time.drop()
+    update = Column('update_time', DateTime)
+    update.create(profile)

@@ -212,7 +212,10 @@ export default {
   computed: {
     update_time: function () {
       let dt = new Date(this.profile_data.update_time);
-      return this.$dateFns.format(dt, "yyyy/MM/dd hh:mm ");
+      const upd = this.$dayjs(dt);
+      console.log(dt);
+      console.log(upd);
+      return upd.format("YYYY/MM/DD HH:mm ");
     },
     profile_img: function () {
       return this.profile_data.twitter_image_url.replace("normal", "bigger");
