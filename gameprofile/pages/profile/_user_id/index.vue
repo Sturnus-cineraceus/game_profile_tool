@@ -14,8 +14,13 @@
         src="https://platform.twitter.com/widgets.js"
         charset="utf-8"
       ></script> -->
-      <div class="update_time_parts">
-        <small>更新日: {{ update_time }}</small>
+      <div class="side_parts">
+        <div class="update_time_parts">
+          <small>更新日: {{ update_time }}</small>
+        </div>
+        <div>
+          <TwitterShare></TwitterShare>
+        </div>
       </div>
       <b-container class="prof_card_container">
         <b-row>
@@ -154,9 +159,11 @@
 <script>
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import TwitterShare from "@/components/twitter_share";
 import axios from "axios";
+
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer, TwitterShare },
   name: "Profile",
   head: function () {
     let desc =
@@ -383,7 +390,7 @@ a.prf_link {
     }
   }
 }
-.update_time_parts {
+.side_parts {
   width: 100%;
   text-align: right;
   padding-right: 5em;
