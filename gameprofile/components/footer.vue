@@ -3,7 +3,7 @@
     <footer>
       <b-row align-h="start">
         <b-col cols="6" md="3">
-          <div>Copyright 2022 glorificatio.</div>
+          <div class="copyright">Copyright 2022 glorificatio.</div>
         </b-col>
         <b-col cols="4" md="3">
           <div>
@@ -23,10 +23,13 @@ footer {
   div {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    padding-left: 0.5em;
+    width: 100%;
     a {
       color: var(--white);
     }
   }
+}
+.copyright {
+  padding-left: 1em;
 }
 </style>

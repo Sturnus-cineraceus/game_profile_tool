@@ -367,6 +367,8 @@ a.prf_link {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 1em;
+  margin-right: 1em;
   button {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
