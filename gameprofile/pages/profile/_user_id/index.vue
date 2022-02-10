@@ -213,8 +213,6 @@ export default {
     update_time: function () {
       let dt = new Date(this.profile_data.update_time);
       const upd = this.$dayjs(dt);
-      console.log(dt);
-      console.log(upd);
       return upd.format("YYYY/MM/DD HH:mm ");
     },
     profile_img: function () {
