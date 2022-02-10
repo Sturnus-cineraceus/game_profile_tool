@@ -2,24 +2,15 @@
   <div class="main">
     <Header></Header>
     <div class="profilem_main">
-      <!-- <a
-        href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-        class="twitter-share-button"
-        data-size="large"
-        data-show-count="false"
-        >Tweet</a
-      >
-      <script
-        async
-        src="https://platform.twitter.com/widgets.js"
-        charset="utf-8"
-      ></script> -->
       <div class="side_parts">
         <div class="update_time_parts">
           <small>更新日: {{ update_time }}</small>
         </div>
         <div>
-          <TwitterShare></TwitterShare>
+          <TwitterShare
+            class="tw_share"
+            :profile_data="profile_data"
+          ></TwitterShare>
         </div>
       </div>
       <b-container class="prof_card_container">
@@ -389,6 +380,9 @@ a.prf_link {
       margin: 1em;
     }
   }
+}
+.tw_share {
+  padding-top: 2em;
 }
 .side_parts {
   width: 100%;

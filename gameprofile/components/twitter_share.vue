@@ -8,9 +8,29 @@
 </template>
 <script>
 export default {
+  props: { profile_data: null },
   methods: {
     tweet: function () {
-      console.log("dadada");
+      let nowurl =
+        this.$config.HTTP_PROTOCOL +
+        this.$config.DOMAIN +
+        "/profile/" +
+        this.profile_data.user_id;
+      let hashtags = "フォートナイト,フォトナプロフ";
+      let message = this.profile_data.message.substr(0, 80);
+      if (message) {
+        message = message + "... ";
+      }
+      console.log(message);
+      let tweeturl =
+        "https://twitter.com/intent/tweet?hashtags=" +
+        hashtags +
+        "&url=" +
+        nowurl +
+        "&text=" +
+        message;
+
+      window.open(tweeturl, "_blank");
     },
   },
 };
