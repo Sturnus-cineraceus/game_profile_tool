@@ -52,6 +52,9 @@ export default {
   name: "IndexPage",
   data: () => ({ text: "", user: {}, userName: "", login: false }),
   head: function () {
+    let ogimg =
+      this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/ogpimg.png";
+    let nowurl = this.$config.HTTP_PROTOCOL + this.$config.DOMAIN;
     return {
       title: "フォトナプロフ",
       titleTemplate: "",
@@ -62,6 +65,24 @@ export default {
           content:
             "フォートナイトのプレイヤーがプロフィール（履歴書）を書いて共有できるサイト。",
         },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: "フォトナプロフ",
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content:
+            "フォートナイトのプレイヤーがプロフィール（履歴書）を書いて共有できるサイト",
+        },
+        {
+          hid: "twitter:card",
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+        { hid: "og:url", property: "og:url", content: nowurl },
+        { hid: "og:image", property: "og:image", content: ogimg },
       ],
     };
   },
