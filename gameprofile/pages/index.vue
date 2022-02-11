@@ -7,7 +7,7 @@
           title="フォートナイトの履歴書"
           tag="article"
           class="mb-2 text-center"
-          img-src="/top_card.jpg"
+          :img-src="top_img"
           img-bottom
         >
           <b-card-text>
@@ -75,6 +75,10 @@ export default {
   computed: {
     myprof: function () {
       return "/profile/" + this.user.twitter_data.user_id;
+    },
+    top_img: function () {
+      let url = "img/assets/" + this.$config.TOP_IMG;
+      return url;
     },
   },
 };
