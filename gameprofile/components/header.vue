@@ -16,6 +16,7 @@
           <b-nav-item v-if="inLogin && existsPublicProfile" :to="my_profile"
             >自分のプロフィール表示</b-nav-item
           >
+          <b-nav-item v-if="mod_status" to="/ctrl">管理</b-nav-item>
           <b-nav-item v-if="!inLogin" to="/login">ログイン</b-nav-item>
           <b-nav-item v-if="inLogin" to="/logout">ログアウト</b-nav-item>
         </b-navbar-nav>
@@ -32,6 +33,7 @@ export default {
     img: "",
     inLogin: false,
     existsPublicProfile: false,
+    mod_status: false,
   }),
   computed: {
     my_profile: function () {
@@ -54,6 +56,10 @@ export default {
         let initData = await axios.get("/v1/api/user_profile/" + user_id);
         this.$logger.debug("ヘッダープロフィールデータ", initData);
         this.existsPublicProfile = true;
+
+        let modData = await axios.get("/v1/api/moderator_status");
+        this.$logger.debug("ヘッダーモデレーターデータ", modData.data);
+        this.mod_status = modData.data.status;
       } catch (e) {
         this.$logger.info("not found profile data");
       }

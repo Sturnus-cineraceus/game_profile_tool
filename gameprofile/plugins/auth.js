@@ -21,6 +21,16 @@ export default ({ store }, inject) => {
             if (!store.state.user.data.twitter) {
                 window.location.href = "/"
             }
+        },
+        permitModerator: async () => {
+            await auth.permitLogin();
+            let url = "/v1/api/moderator_status";
+            let response = await axios.get(url);
+            console.log(response.data)
+            let modData = response.data;
+            if (!modData.status) {
+                throw new Error("no moderetar");
+            }
         }
     }
 

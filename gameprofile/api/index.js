@@ -45,6 +45,8 @@ app.use(session({
 // req.session.user_data  ユーザーの情報
 // req.session.oauth_token アクセストークン
 // req.session.oauth_token_secret アクセストークンシークレット
+// req.session.twitter_id twitterのID ログインしない限り存在しない
+
 
 /* user_dataの構造 */
 // {
@@ -190,12 +192,58 @@ app.get('/callback', async (req, res) => {
         log.debug(resp.data)
         let user_data = { twitter_data: resp.data, twitter: true };
         req.session.user_data = user_data;
+        req.session.twitter_id = user_data.twitter_data.id;
         res.json(user_data)
     } catch {
         res.status(500).send();
         return;
     }
 })
+
+app.get('/moderator_status', async (req, res) => {
+    try {
+        if (req.session.twitter_id) {
+            let modstatus = await axios.get("http://api/admin/moderator_status/" + req.session.twitter_id);
+            log.debug(req.session.twitter_id + "モデレーター権限:", modstatus.data)
+            res.json(modstatus.data)
+        } else {
+            res.json({ status: false })
+        }
+    } catch (e) {
+        log.error(e)
+        res.status(500).send();
+        return;
+    }
+})
+
+/* 以下モデレーター用API */
+/* モデレーター権限があるかどうかを1リクエストごとに確認し、なければ403を返さなければならない */
+/* これはフロント側のいくつかの制御をクリアされるバグがあったとしても安全に保護される措置である */
+
+app.get('/user/list', async (req, res) => {
+    try {
+        if (req.session.twitter_id) {
+            let modstatus = await axios.get("http://api/admin/moderator_status/" + req.session.twitter_id);
+            log.debug(req.session.twitter_id + "モデレーター権限:", modstatus.data)
+            if (!modstatus.data.status) {
+                res.status(403).send();
+                return;
+            }
+            let userlist = await axios.get("http://api/admin/user/list/");
+            return res.json(userlist.data)
+        } else {
+            res.status(403).send();
+            return;
+        }
+    } catch (e) {
+        log.error(e)
+        res.status(500).send();
+        return;
+    }
+})
+
+
+
 
 
 module.exports = {

@@ -10,5 +10,4 @@ def get_profile(user_id):
     session = createSession()
     profile = session.query(
         Profile).filter_by(user_id=user_id, available=True).first()
-    print(profile)
     return profile
