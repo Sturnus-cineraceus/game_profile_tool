@@ -53,7 +53,8 @@ export default {
   publicRuntimeConfig: {
     DEV_MODE: process.env.DEV_MODE,
     DOMAIN: process.env.DOMAIN,
-    HTTP_PROTOCOL: process.env.HTTP_PROTOCOL
+    HTTP_PROTOCOL: process.env.HTTP_PROTOCOL,
+    TOP_IMG: process.env.TOP_IMG
   }
   , dayjs: {
     locales: ['en', 'ja'],

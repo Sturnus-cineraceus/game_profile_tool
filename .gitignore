@@ -4,4 +4,7 @@ venv/
 */__pycache__/*
 *.pyc
 
+
 *.dump
+gameprofile/static/img/assets/*
+!.gitkeep
