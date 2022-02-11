@@ -24,6 +24,20 @@ class User(Base):
     twitter_id = Column(String(40), primary_key=True)
 
 
+class Moderator(Base):
+    __tablename__ = 'moderator'
+    __table_args__ = ({"mysql_charset": "utf8mb4"})
+    twitter_id = Column(String(40), primary_key=True)
+
+
+class Block(Base):
+    __tablename__ = 'block'
+    __table_args__ = ({"mysql_charset": "utf8mb4"})
+    user_id = Column(String(40), primary_key=True)
+    twitter_id = Column(String(40), primary_key=True)
+    update_time = Column(Timestamp)
+
+
 class Profile(Base):
     __tablename__ = 'profile'
     __table_args__ = ({"mysql_charset": "utf8mb4"})
