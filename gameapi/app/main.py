@@ -78,6 +78,8 @@ def post_username(tokenData: TokenData):
         print(e)
         session.rollback()
         return JSONResponse(status_code=500)
+    finally:
+        session.close()
 
 
 @app.get("/accesstoken")

@@ -54,6 +54,8 @@ def delete_profile(user_id):
         print(e)
         session.rollback()
         return JSONResponse(status_code=500)
+    finally:
+        session.close()
 
 
 @router.post('/', status_code=201)
@@ -104,3 +106,5 @@ def post_profile(data: ProfileData):
         print(e)
         session.rollback()
         return JSONResponse(status_code=500)
+    finally:
+        session.close()

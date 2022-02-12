@@ -13,6 +13,7 @@ def get_moderator_status(twitter_id):
         Moderator).filter_by(twitter_id=twitter_id).count()
 
     status = mod_cout != 0
+    session.close()
     return {"status": status}
 
 
@@ -20,7 +21,7 @@ def get_moderator_status(twitter_id):
 def get_moderator_status():
     session = createSession()
     users = session.query(
-        User.twitter_id, User.id, Profile.epic_name).outerjoin(User, User.id == Profile.user_id).all()
-    for u in users:
-        print(u)
+        User.twitter_id, User.id, Profile.twitter_name, Profile.twitter_screen_name, Profile.twitter_url).outerjoin(User, User.id == Profile.user_id).all()
+
+    session.close()
     return users
