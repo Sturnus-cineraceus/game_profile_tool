@@ -38,7 +38,7 @@ def get_profile(user_id):
     session = createSession()
     profile = session.query(
         Profile).filter_by(user_id=user_id).first()
-
+    session.close()
     return profile
 
 
