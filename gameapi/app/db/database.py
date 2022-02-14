@@ -11,7 +11,7 @@ HOST = 'mysqldb'
 
 # MySQL Connector/Pythonを使うためmysqlconnectorを指定する
 engine = create_engine(
-    f'mysql+mysqlconnector://{config.USER}:{config.PASSWORD}@{HOST}/{config.DATABASE}')
+    f'mysql+mysqlconnector://{config.USER}:{config.PASSWORD}@{HOST}/{config.DATABASE}',pool_pre_ping=True)
 
 # テーブルを定義する
 Base = declarative_base()
