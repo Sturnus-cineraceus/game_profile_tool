@@ -14,7 +14,7 @@
           <template v-for="user in user_list">
             <tr :key="user.twitter_id">
               <td>{{ user.twitter_id }}</td>
-              <th>
+              <td>
                 <a
                   :href="user.twitter_url"
                   target="_blank"
@@ -22,7 +22,7 @@
                 >
                   {{ user.twitter_name }}
                 </a>
-              </th>
+              </td>
               <td>
                 <a
                   :href="base_url + user.id"
@@ -82,7 +82,7 @@ export default {
   min-height: 80vh;
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   .info_table {
     width: 80%;
     padding: 5em;

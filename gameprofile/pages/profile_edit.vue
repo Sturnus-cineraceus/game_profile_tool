@@ -5,6 +5,16 @@
       <b-overlay class="basic_profile" :show="overlay_show" rounded="sm">
         <b-card-group deck>
           <b-card title="基本プロフィール">
+            <b-nav card-header align="end">
+              <b-nav-item-dropdown right :no-caret="true">
+                <template slot="button-content">
+                  <b-icon-list class="edit_ham_icon"></b-icon-list>
+                </template>
+                <b-dropdown-item v-b-modal.delete-modal
+                  >プロフィール削除</b-dropdown-item
+                >
+              </b-nav-item-dropdown>
+            </b-nav>
             <div class="card_contents">
               <b-form-group
                 id="epic_name_group"
@@ -134,9 +144,6 @@
               </b-form-checkbox>
             </div>
             <div class="edit_btns">
-              <b-button variant="danger" class="del_btn" v-b-modal.delete-modal
-                >削除</b-button
-              >
               <b-button
                 variant="success"
                 class="write_btn"
@@ -350,6 +357,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.edit_ham_icon {
+  width: 32px;
+  height: 32px;
+}
 div.contents {
   display: flex;
   justify-content: center;
