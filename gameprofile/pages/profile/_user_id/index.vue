@@ -94,7 +94,7 @@
               class="text-center profile_card"
             >
               <b-card-text>
-                <pre>{{ profile_data.message }}</pre>
+                <pre class="profile_message">{{ profile_data.message }}</pre>
               </b-card-text>
             </b-card>
           </b-col>
@@ -387,5 +387,8 @@ a.prf_link {
   text-align: right;
   padding-right: 5em;
   padding-bottom: 0.5em;
+}
+.profile_message {
+  font-size: 100%;
 }
 </style>

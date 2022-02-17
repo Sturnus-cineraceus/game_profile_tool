@@ -6,7 +6,7 @@
         <b-card
           title="フォートナイトの履歴書"
           tag="article"
-          class="mb-2 text-center"
+          class="mb-2 text-center index_card"
           :img-src="top_img"
           img-bottom
         >
@@ -37,6 +37,15 @@
               >プロフィールを見る
             </b-button>
           </div>
+        </b-card>
+        <b-card
+          title="新着プロフィール"
+          tag="article"
+          class="mb-2 text-center index_card"
+        >
+          <b-card-text>
+            <article>最近更新したプロフィール一覧</article>
+          </b-card-text>
         </b-card>
       </div>
     </div>
@@ -131,8 +140,15 @@ div.main {
 }
 .main_button_area {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  padding: 2em;
+  //
+  .index_card {
+    margin-bottom: 5em !important;
+    max-width: 1400px;
+    width: 100%;
+  }
   .introduction {
     margin-top: 3em;
   }
