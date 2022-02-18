@@ -44,6 +44,7 @@
           class="mb-2 text-center index_card"
         >
           <b-card-text>
+            <!-- のちのちコンポーネント化 -->
             <article>最近更新したプロフィール一覧</article>
           </b-card-text>
         </b-card>
@@ -56,6 +57,7 @@
 <script>
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import axios from "axios";
 export default {
   components: { Header, Footer },
   name: "IndexPage",
@@ -101,6 +103,15 @@ export default {
       this.userName = this.user.twitter_data.user_name;
       this.login = this.user.twitter;
     });
+
+    axios
+      .get("/v1/api/latest/list")
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => {
+        this.$logger.error(e);
+      });
   },
   computed: {
     myprof: function () {

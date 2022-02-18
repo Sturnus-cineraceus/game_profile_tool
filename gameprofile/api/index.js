@@ -150,6 +150,16 @@ app.get("/user_profile/:user_id", async (req, res) => {
 });
 
 
+app.get("/latest/list", async (req, res) => {
+    let resp = await axios.get("http://api/latest/list");
+    if (!resp.data) {
+        res.status(404).send()
+        return
+    }
+    return res.send(resp.data)
+});
+
+
 
 /* 公開情報用API 終わり */
 

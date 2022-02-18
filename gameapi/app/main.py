@@ -4,7 +4,7 @@ from requests_oauthlib import OAuth1Session
 import urllib.parse as parse
 from pydantic import BaseModel
 import app.config as config
-from app.routers import profile, user_profile, admin
+from app.routers import profile, user_profile, admin, latest
 from app.db.database import User, createSession
 from fastapi.responses import JSONResponse
 import hashlib
@@ -26,6 +26,7 @@ token_endpoint = twitter_base_url + '/oauth/access_token'
 app.include_router(profile.router, prefix="/profile")
 app.include_router(user_profile.router, prefix="/user_profile")
 app.include_router(admin.router, prefix="/admin")
+app.include_router(latest.router, prefix="/latest")
 
 
 @app.get('/login')
