@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  apitest:
+    build: ./apitest
+    volumes:
+      - ./apitest/test:/test
+    depends_on:
+      - api
+    environment:
+      TZ: Asia/Tokyo
+    profiles:
+      - test
+    tty: true
   api:
     build: ./gameapi
     volumes:

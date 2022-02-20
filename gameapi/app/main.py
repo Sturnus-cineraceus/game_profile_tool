@@ -56,6 +56,11 @@ class TokenData(BaseModel):
     token_secret: str
 
 
+@app.get("/health")
+def get_health():
+    return {"status": "OK"}
+
+
 @app.post("/user_name")
 def post_username(tokenData: TokenData):
     auth = tweepy.OAuthHandler(config.api_key, config.api_secret)

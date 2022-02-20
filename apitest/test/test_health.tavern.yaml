@@ -1,0 +1,12 @@
+test_name: helth test
+includes:
+  - !include common.yaml
+stages:
+  - name: get health
+    request:
+      url: "{protocol:s}://{host:s}:{port:d}/health"
+      method: GET
+    response:
+      status_code: 200
+      json:
+        status: OK
