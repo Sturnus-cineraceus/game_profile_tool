@@ -39,14 +39,27 @@
           </div>
         </b-card>
         <b-card
-          title="新着プロフィール"
+          title="最近更新されたプロフィール"
           tag="article"
           class="mb-2 text-center index_card"
         >
-          <b-card-text>
-            <!-- のちのちコンポーネント化 -->
-            <article>最近更新したプロフィール一覧</article>
-          </b-card-text>
+          <b-list-group>
+            <template v-for="item in latests">
+              <b-list-group-item :key="item.user_id">
+                <b-avatar
+                  variant="info"
+                  :src="item.twitter_image_url"
+                  class="mr-3"
+                ></b-avatar>
+                <a
+                  :href="item.twitter_url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{{ item.twitter_name }}</a
+                ></b-list-group-item
+              >
+            </template>
+          </b-list-group>
         </b-card>
       </div>
     </div>
@@ -61,7 +74,7 @@ import axios from "axios";
 export default {
   components: { Header, Footer },
   name: "IndexPage",
-  data: () => ({ text: "", user: {}, userName: "", login: false }),
+  data: () => ({ text: "", user: {}, userName: "", login: false, latests: [] }),
   head: function () {
     let ogimg =
       this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/ogpimg.png";
@@ -107,7 +120,8 @@ export default {
     axios
       .get("/v1/api/latest/list")
       .then((res) => {
-        console.log(res.data);
+        this.latests = res.data.latest;
+        console.log(this.latests);
       })
       .catch((e) => {
         this.$logger.error(e);
