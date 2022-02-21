@@ -52,7 +52,7 @@
                   class="mr-3"
                 ></b-avatar>
                 <a
-                  :href="item.twitter_url"
+                  :href="convert_url(item.user_id)"
                   target="_blank"
                   rel="noopener noreferrer"
                   >{{ item.twitter_name }}</a
@@ -109,6 +109,13 @@ export default {
         { hid: "og:image", property: "og:image", content: ogimg },
       ],
     };
+  },
+  methods: {
+    convert_url: function (user_id) {
+      return (
+        this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/profile/" + user_id
+      );
+    },
   },
   async mounted() {
     this.$authUtil.verifyAuth().then(() => {
