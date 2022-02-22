@@ -24,10 +24,6 @@ const options = {
     host: 'mysqldb',
     port: 3306,
     user: process.env.DB_USER,
-    cookie: {
-        maxAge: 60000000, httpOnly: true,
-        secure: cookie_secure,
-    },
     password: process.env.DB_PASSWD,
     database: process.env.DB,
 };
@@ -38,6 +34,11 @@ app.use(session({
     secret: process.env.SESSION_SCRT,
     store: sessionStore,
     resave: false,
+    cookie: {
+        maxAge: 60 * 60 * 24 * 7 * 1000,
+        httpOnly: true,
+        secure: cookie_secure,
+    },
     saveUninitialized: false
 }));
 
