@@ -18,6 +18,8 @@ let cookie_secure = true;
 if (process.env.DEV_MODE == 1) {
     cookie_secure = false;
     console.log("デバッグモード")
+} else {
+    app.set('trust proxy', 1)
 }
 
 const options = {
