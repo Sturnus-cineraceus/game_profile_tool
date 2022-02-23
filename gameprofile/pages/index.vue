@@ -51,12 +51,9 @@
                   :src="item.twitter_image_url"
                   class="mr-3"
                 ></b-avatar>
-                <a
-                  :href="convert_url(item.user_id)"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >{{ item.twitter_name }}</a
-                ></b-list-group-item
+                <nuxt-link :to="convert_url(item.user_id)">{{
+                  item.twitter_name
+                }}</nuxt-link></b-list-group-item
               >
             </template>
           </b-list-group>
@@ -74,7 +71,7 @@ import axios from "axios";
 export default {
   components: { Header, Footer },
   name: "IndexPage",
-  data: () => ({ text: "", user: {}, userName: "", login: false, latests: [] }),
+  data: () => ({ text: "", user: {}, userName: "", login: false }),
   head: function () {
     let ogimg =
       this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/ogpimg.png";
@@ -112,10 +109,21 @@ export default {
   },
   methods: {
     convert_url: function (user_id) {
-      return (
-        this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/profile/" + user_id
-      );
+      return "/profile/" + user_id;
     },
+  },
+  async asyncData() {
+    let url = "/v1/api/latest/lis";
+    if (process.server) {
+      url = "http://localhost:3000" + url;
+    }
+
+    try {
+      let res = await axios.get("http://localhost:3000/v1/api/latest/list");
+      return { latests: res.data.latest };
+    } catch (e) {
+      this.$logger.error(e);
+    }
   },
   async mounted() {
     this.$authUtil.verifyAuth().then(() => {
@@ -123,16 +131,6 @@ export default {
       this.userName = this.user.twitter_data.user_name;
       this.login = this.user.twitter;
     });
-
-    axios
-      .get("/v1/api/latest/list")
-      .then((res) => {
-        this.latests = res.data.latest;
-        console.log(this.latests);
-      })
-      .catch((e) => {
-        this.$logger.error(e);
-      });
   },
   computed: {
     myprof: function () {
