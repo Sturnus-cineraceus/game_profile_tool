@@ -1,3 +1,4 @@
+import axios from 'axios'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -39,7 +40,8 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/dayjs'
+    '@nuxtjs/dayjs',
+    '@nuxtjs/sitemap',
   ],
   bootstrapVue: {
     icons: true
@@ -64,5 +66,20 @@ export default {
       'utc', // import 'dayjs/plugin/utc'
       'timezone' // import 'dayjs/plugin/timezone'
     ] // Your Day.js plugin
+  },
+  sitemap: {
+    path: '/sitemap.xml',
+    hostname: 'https://games.glorificatio.org/',
+    exclude: ['/ctrl/**', '/ctrl', '/profile_edit', '/login', '/logout', '/callback'],
+    routes: async (callback) => {
+      try {
+        const data = await axios.get('http://localhost:3000/v1/api/latest/list?limit=300')
+        const rt = data.data.latest.map((post) => { return `/profile/${post.user_id}` })
+        callback(null, rt)
+      } catch {
+        callback()
+      }
+
+    }
   }
 }

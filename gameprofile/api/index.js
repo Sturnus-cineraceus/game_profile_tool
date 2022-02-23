@@ -154,7 +154,15 @@ app.get("/user_profile/:user_id", async (req, res) => {
 
 
 app.get("/latest/list", async (req, res) => {
-    let resp = await axios.get("http://api/latest/list");
+
+    let prm = {
+    }
+
+    if (req.query.limit) {
+        prm.limit = req.query.limit
+    }
+
+    let resp = await axios.get("http://api/latest/list", { params: prm });
     if (!resp.data) {
         res.status(404).send()
         return
