@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Index
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import Column
@@ -11,7 +11,7 @@ HOST = 'mysqldb'
 
 # MySQL Connector/Pythonを使うためmysqlconnectorを指定する
 engine = create_engine(
-    f'mysql+mysqlconnector://{config.USER}:{config.PASSWORD}@{HOST}/{config.DATABASE}',pool_pre_ping=True)
+    f'mysql+mysqlconnector://{config.USER}:{config.PASSWORD}@{HOST}/{config.DATABASE}', pool_pre_ping=True)
 
 # テーブルを定義する
 Base = declarative_base()
@@ -40,7 +40,8 @@ class Block(Base):
 
 class Profile(Base):
     __tablename__ = 'profile'
-    __table_args__ = ({"mysql_charset": "utf8mb4"})
+    __table_args__ = (Index('message_index', 'message', mysql_prefix="FULLTEXT", mysql_with_parser="mecab",
+                            ), {"mysql_charset": "utf8mb4"})
     user_id = Column(String(40), primary_key=True)
     epic_name = Column(String(254))
     sex = Column(Integer)

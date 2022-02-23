@@ -16,7 +16,6 @@ def get_latest_list(limit: Optional[int] = None):
 
     result = []
     for p in profiles:
-        print(p)
         result.append(p)
     session.close()
     return {"latest": result}

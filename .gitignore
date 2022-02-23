@@ -8,3 +8,4 @@ venv/
 *.dump
 gameprofile/static/img/assets/*
 !.gitkeep
+*.tar.gz
