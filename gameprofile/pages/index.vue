@@ -113,7 +113,7 @@ export default {
     },
   },
   async asyncData() {
-    let url = "/v1/api/latest/lis";
+    let url = "/v1/api/latest/list";
     if (process.server) {
       url = "http://localhost:3000" + url;
     }
