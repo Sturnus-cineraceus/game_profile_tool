@@ -100,6 +100,45 @@
           </b-col>
         </b-row>
         <b-row>
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="強さ"
+              class="text-center profile_card"
+            >
+              <b-card-text>
+                <div class="level_star">
+                  <template v-for="n of profile_data.strength">
+                    <span :key="n"><b-icon-star-fill></b-icon-star-fill></span>
+                  </template>
+                </div>
+                <div>
+                  {{ strength }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </b-col>
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="ゲーム機"
+              class="text-center profile_card"
+            >
+              <b-card-text>
+                <div>
+                  {{ device }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </b-col>
+        </b-row>
+        <b-row>
           <b-col>
             <b-card
               border-variant="danger"
@@ -111,9 +150,8 @@
             >
               <b-card-text>
                 <p>{{ playmode }}</p>
-                <p>{{ strength }}</p>
                 <p>{{ time }}</p>
-                <p>{{ device }}</p>
+
                 <p>{{ ctrler }}</p>
                 <p>{{ voice }}</p>
                 <p>{{ important }}</p>
@@ -262,7 +300,7 @@ export default {
       if (strg === 0) {
         return "";
       }
-      return "強さは、『" + stgtary[strg] + "』です";
+      return stgtary[strg];
     },
     time: function () {
       const timeary = ["", "早朝", "日中帯", "夕方", "夜", "深夜"];
@@ -288,7 +326,7 @@ export default {
       if (devicenum === 0) {
         return "";
       }
-      return "使っているゲーム機は、" + dvary[devicenum] + "です";
+      return dvary[devicenum];
     },
 
     ctrler: function () {
@@ -390,5 +428,11 @@ a.prf_link {
 }
 .profile_message {
   font-size: 100%;
+}
+.level_star {
+  span {
+    padding-right: 0.1em;
+    color: #ebd234;
+  }
 }
 </style>
