@@ -119,10 +119,10 @@ export default {
     }
 
     try {
-      let res = await axios.get("http://localhost:3000/v1/api/latest/list");
+      let res = await axios.get(url);
       return { latests: res.data.latest };
     } catch (e) {
-      this.$logger.error(e);
+      return;
     }
   },
   async mounted() {
