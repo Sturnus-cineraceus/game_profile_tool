@@ -23,7 +23,7 @@
               to="/login"
             >
               <b-icon-twitter class="twicon"></b-icon-twitter
-              ><span class="loginword">ツイッターでログイン</span>
+              ><span class="loginword">ログインしてプロフ作成</span>
             </b-button>
           </div>
           <div v-if="login">
