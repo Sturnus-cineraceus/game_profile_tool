@@ -111,8 +111,15 @@
             >
               <b-card-text>
                 <div class="level_star">
-                  <template v-for="n of profile_data.strength">
-                    <span :key="n"><b-icon-star-fill></b-icon-star-fill></span>
+                  <template v-for="n of 10">
+                    <span :key="n">
+                      <template v-if="n <= profile_data.strength">
+                        <b-icon-star-fill></b-icon-star-fill>
+                      </template>
+                      <template v-else>
+                        <b-icon-star></b-icon-star>
+                      </template>
+                    </span>
                   </template>
                 </div>
                 <div>
@@ -139,21 +146,84 @@
           </b-col>
         </b-row>
         <b-row>
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="よく遊ぶモード"
+              class="text-center profile_card"
+            >
+              <b-card-text>
+                <div>
+                  {{ playmode }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </b-col>
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="ボイスチャット"
+              class="text-center profile_card"
+            >
+              <b-card-text>
+                <div>
+                  {{ voice }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="コントローラー"
+              class="text-center profile_card"
+            >
+              <b-card-text>
+                <div>
+                  {{ ctrler }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </b-col>
+          <b-col cols="12" md="6">
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="遊んでる時間帯"
+              class="text-center profile_card"
+            >
+              <b-card-text>
+                <div>
+                  {{ time }}
+                </div>
+              </b-card-text>
+            </b-card>
+          </b-col>
+        </b-row>
+        <b-row>
           <b-col>
             <b-card
               border-variant="danger"
               bg-variant="light"
               text-variant="dark"
               header-border-variant="danger"
-              header="いろんなこと"
+              header="ゲームで大切にしてること"
               class="text-center profile_card"
             >
               <b-card-text>
-                <p>{{ playmode }}</p>
-                <p>{{ time }}</p>
-
-                <p>{{ ctrler }}</p>
-                <p>{{ voice }}</p>
                 <p>{{ important }}</p>
               </b-card-text>
             </b-card>
@@ -278,7 +348,7 @@ export default {
       if (ply === 0) {
         return "";
       }
-      return "いつも遊んでいるゲームモードは、" + plyary[ply] + "です";
+      return plyary[ply];
     },
 
     strength: function () {
@@ -309,7 +379,7 @@ export default {
       if (timenum === 0) {
         return "";
       }
-      return "いつも" + timeary[timenum] + "あたりで遊んでいます";
+      return timeary[timenum];
     },
 
     device: function () {
@@ -335,7 +405,7 @@ export default {
       if (ctrlernum === 0) {
         return "";
       }
-      return "使っているコントローラーは、" + ctary[ctrlernum] + "です";
+      return ctary[ctrlernum];
     },
     voice: function () {
       const vcary = [
@@ -350,7 +420,7 @@ export default {
       if (vcnum === 0) {
         return "";
       }
-      return "ボイスチャットは" + vcary[vcnum];
+      return vcary[vcnum];
     },
     important: function () {
       const importantary = [
@@ -371,11 +441,7 @@ export default {
       if (importantnum === 0) {
         return "";
       }
-      return (
-        "このゲームで重視していることは、『" +
-        importantary[importantnum] +
-        "』です"
-      );
+      return importantary[importantnum];
     },
   },
 };
