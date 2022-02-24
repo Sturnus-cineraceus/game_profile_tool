@@ -93,8 +93,10 @@
               header="メッセージ"
               class="text-center profile_card"
             >
-              <b-card-text>
-                <pre class="profile_message">{{ profile_data.message }}</pre>
+              <b-card-text class="profile_message">
+                <pre class="profile_message_body">{{
+                  profile_data.message
+                }}</pre>
               </b-card-text>
             </b-card>
           </b-col>
@@ -493,8 +495,16 @@ a.prf_link {
   padding-bottom: 0.5em;
 }
 .profile_message {
-  font-size: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .profile_message_body {
+    font-size: 100%;
+    text-align: left;
+    white-space: pre-wrap;
+  }
 }
+
 .level_star {
   span {
     padding-right: 0.1em;
