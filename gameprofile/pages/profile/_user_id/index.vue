@@ -415,7 +415,7 @@ export default {
         "VCできません",
         "たまにできます",
         "いつでもオンです",
-        "たまにできません",
+        "だいたいオンです",
         "仲良くなったらできます",
       ];
       let vcnum = this.profile_data.vc;

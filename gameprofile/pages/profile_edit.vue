@@ -247,7 +247,7 @@ export default {
       { value: "1", text: "VCできません" },
       { value: "2", text: "たまにできます" },
       { value: "3", text: "いつでもオンです" },
-      { value: "4", text: "たまにできません" },
+      { value: "4", text: "だいたいオンです" },
       { value: "5", text: "仲良くなったらできます" },
     ],
     time_opt: [
