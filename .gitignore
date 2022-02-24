@@ -9,3 +9,4 @@ venv/
 gameprofile/static/img/assets/*
 !.gitkeep
 *.tar.gz
+gameprofile/static/robots.txt

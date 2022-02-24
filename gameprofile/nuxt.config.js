@@ -69,7 +69,7 @@ export default {
   },
   sitemap: {
     path: '/sitemap.xml',
-    hostname: 'https://games.glorificatio.org/',
+    hostname: 'https://' + process.env.DOMAIN + "/",
     exclude: ['/ctrl/**', '/ctrl', '/profile_edit', '/login', '/logout', '/callback'],
     routes: async (callback) => {
       try {
