@@ -231,6 +231,22 @@
             </b-card>
           </b-col>
         </b-row>
+        <b-row>
+          <b-col>
+            <b-card
+              border-variant="danger"
+              bg-variant="light"
+              text-variant="dark"
+              header-border-variant="danger"
+              header="わたしのツイート"
+              class="text-center profile_card"
+            >
+              <div class="profile_tweet_card">
+                <Tweet class="tweet_body" id="1495429251075481604"></Tweet>
+              </div>
+            </b-card>
+          </b-col>
+        </b-row>
       </b-container>
 
       <div class="to_main_area">
@@ -254,6 +270,7 @@
         </b-card>
       </div>
     </div>
+
     <Footer></Footer>
   </div>
 </template>
@@ -262,9 +279,9 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import TwitterShare from "@/components/twitter_share";
 import axios from "axios";
-
+import { Tweet } from "vue-tweet-embed";
 export default {
-  components: { Header, Footer, TwitterShare },
+  components: { Header, Footer, TwitterShare, Tweet },
   name: "Profile",
   head: function () {
     let desc =
@@ -502,6 +519,15 @@ a.prf_link {
     font-size: 100%;
     text-align: left;
     white-space: pre-wrap;
+  }
+}
+.profile_tweet_card {
+  width: 100%;
+  .tweet_body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 }
 

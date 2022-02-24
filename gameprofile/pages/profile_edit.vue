@@ -137,7 +137,19 @@
                   :options="vc_opt"
                 ></b-form-select>
               </b-form-group>
-
+              <b-form-group
+                id="vc_group"
+                label="ツイート埋め込み"
+                label-for="tweet_url"
+              >
+                <b-form-input
+                  id="tweet_url"
+                  v-model="form.tweet"
+                  :state="url_valid"
+                  type="url"
+                  placeholder="https://twitter.com/glorificatio/status/xxxxxxxxxxxxxxxx"
+                ></b-form-input>
+              </b-form-group>
               <b-form-checkbox v-model="form.available" name="available" switch>
                 <p v-if="!form.available">非公開</p>
                 <p v-if="form.available">公開中</p>
@@ -195,6 +207,7 @@ export default {
       twitter_image_url: "",
       available: true,
       user_id: "",
+      tweet: "",
     },
     sex_opt: [
       { value: "0", text: "" },
@@ -273,6 +286,17 @@ export default {
       { value: "6", text: "モバイル" },
     ],
   }),
+  computed: {
+    url_valid() {
+      if (!this.form.tweet) {
+        return true;
+      }
+      if (this.form.tweet.startsWith("https://twitter.com/")) {
+        return true;
+      }
+      return false;
+    },
+  },
   async mounted() {
     this.overlay_show = true;
     this.$authUtil
@@ -330,8 +354,16 @@ export default {
         });
     },
     post_profile: function () {
-      this.overlay_show = true;
+      if (!this.url_valid) {
+        this.$bvToast.toast("埋め込みツイート用URLが不正です", {
+          variant: "danger",
+          autoHideDelay: 5000,
+          solid: true,
+        });
+        return;
+      }
 
+      this.overlay_show = true;
       axios
         .post("/v1/api/profile", this.form)
         .then((res) => {
@@ -371,7 +403,11 @@ div.contents {
     width: 80%;
     input,
     select {
-      max-width: 25em;
+      max-width: 35em;
+      color: black;
+    }
+    textarea {
+      color: black;
     }
   }
 }

@@ -38,6 +38,14 @@ class Block(Base):
     update_time = Column(Timestamp)
 
 
+class Tweet(Base):
+    __tablename__ = 'tweet'
+    __table_args__ = ({"mysql_charset": "utf8mb4"})
+    user_id = Column(String(40), primary_key=True)
+    tweet_status_id = Column(String(40), primary_key=True)
+    update_time = Column(Timestamp)
+
+
 class Profile(Base):
     __tablename__ = 'profile'
     __table_args__ = (Index('message_index', 'message', mysql_prefix="FULLTEXT", mysql_with_parser="mecab",
