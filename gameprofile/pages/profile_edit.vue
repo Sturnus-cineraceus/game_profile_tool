@@ -16,11 +16,7 @@
               </b-nav-item-dropdown>
             </b-nav>
             <div class="card_contents">
-              <b-form-group
-                id="epic_name_group"
-                label="EpicID:"
-                label-for="input-2"
-              >
+              <b-form-group id="epic_name_group" label="EpicID:">
                 <b-form-input
                   id="team"
                   v-model="form.epic_name"
@@ -28,11 +24,7 @@
                 ></b-form-input>
               </b-form-group>
 
-              <b-form-group
-                id="team_group"
-                label="チーム名"
-                label-for="input-2"
-              >
+              <b-form-group id="team_group" label="チーム名">
                 <b-form-input
                   id="team"
                   v-model="form.team"
@@ -40,11 +32,7 @@
                 ></b-form-input>
               </b-form-group>
 
-              <b-form-group
-                id="message_group"
-                label="ひとこと"
-                label-for="input-2"
-              >
+              <b-form-group id="message_group" label="ひとこと">
                 <b-form-textarea
                   id="textarea"
                   v-model="form.message"
@@ -61,95 +49,91 @@
                 ></b-form-select>
               </b-form-group>
 
-              <b-form-group
-                id="strength_group"
-                label="強さ"
-                label-for="input-2"
-              >
+              <b-form-group id="strength_group" label="強さ">
                 <b-form-select
                   v-model="form.strength"
                   :options="strength_opt"
                 ></b-form-select>
               </b-form-group>
 
-              <b-form-group
-                id="play_group"
-                label="よく遊んでるモード"
-                label-for="input-2"
-              >
+              <b-form-group id="play_group" label="よく遊んでるモード">
                 <b-form-select
                   v-model="form.play"
                   :options="play_opt"
                 ></b-form-select>
               </b-form-group>
 
-              <b-form-group
-                id="important_group"
-                label="ゲームで目指したいこと"
-                label-for="input-2"
-              >
+              <b-form-group id="important_group" label="ゲームで目指したいこと">
                 <b-form-select
                   v-model="form.important"
                   :options="important_opt"
                 ></b-form-select>
               </b-form-group>
 
-              <b-form-group
-                id="time_group"
-                label="遊んでる時間"
-                label-for="input-2"
-              >
+              <b-form-group id="time_group" label="遊んでる時間">
                 <b-form-select
                   v-model="form.time"
                   :options="time_opt"
                 ></b-form-select>
               </b-form-group>
 
-              <b-form-group
-                id="ctrler_group"
-                label="コントローラー"
-                label-for="input-2"
-              >
+              <b-form-group id="ctrler_group" label="コントローラー">
                 <b-form-select
                   v-model="form.ctrler"
                   :options="ctrler_opt"
                 ></b-form-select>
               </b-form-group>
 
-              <b-form-group
-                id="device_group"
-                label="デバイス"
-                label-for="input-2"
-              >
+              <b-form-group id="device_group" label="デバイス">
                 <b-form-select
                   v-model="form.device"
                   :options="device_opt"
                 ></b-form-select>
               </b-form-group>
 
-              <b-form-group
-                id="vc_group"
-                label="ボイスチャット"
-                label-for="input-2"
-              >
+              <b-form-group id="vc_group" label="ボイスチャット">
                 <b-form-select
                   v-model="form.vc"
                   :options="vc_opt"
                 ></b-form-select>
               </b-form-group>
-              <b-form-group
-                id="vc_group"
-                label="ツイート埋め込み"
-                label-for="tweet_url"
-              >
-                <b-form-input
-                  id="tweet_url"
-                  v-model="form.tweet"
-                  :state="url_valid"
-                  type="url"
-                  placeholder="https://twitter.com/glorificatio/status/xxxxxxxxxxxxxxxx"
-                ></b-form-input>
-              </b-form-group>
+
+              <div class="tweet_area">
+                <hr />
+                <b-form-group
+                  id="vc_group"
+                  label-cols-sm="2"
+                  label="ツイート埋め込み"
+                  label-align-sm="left"
+                >
+                  <b-form-group
+                    label="キャプション"
+                    label-for="tweet_caption"
+                    label-cols-sm="2"
+                    label-align-sm="right"
+                  >
+                    <b-form-input
+                      id="tweet_caption"
+                      v-model="form.tweet.caption"
+                    ></b-form-input>
+                  </b-form-group>
+                  <b-form-group
+                    label="ツイートのURL"
+                    label-for="tweet_url"
+                    label-cols-sm="2"
+                    label-align-sm="right"
+                  >
+                    <b-form-input
+                      id="tweet_url"
+                      v-model="form.tweet.url"
+                      :state="url_valid"
+                      type="url"
+                      placeholder="https://twitter.com/glorificatio/status/xxxxxxxxxxxxxxxx"
+                    ></b-form-input>
+                  </b-form-group>
+                </b-form-group>
+              </div>
+              <hr />
               <b-form-checkbox v-model="form.available" name="available" switch>
                 <p v-if="!form.available">非公開</p>
                 <p v-if="form.available">公開中</p>
@@ -207,7 +191,7 @@ export default {
       twitter_image_url: "",
       available: true,
       user_id: "",
-      tweet: "",
+      tweet: { url: "", caption: "" },
     },
     sex_opt: [
       { value: "0", text: "" },
@@ -288,10 +272,10 @@ export default {
   }),
   computed: {
     url_valid() {
-      if (!this.form.tweet) {
+      if (!this.form.tweet.url) {
         return true;
       }
-      if (this.form.tweet.startsWith("https://twitter.com/")) {
+      if (this.form.tweet.url.startsWith("https://twitter.com/")) {
         return true;
       }
       return false;
@@ -410,6 +394,9 @@ div.contents {
       color: black;
     }
   }
+}
+div.tweet_area {
+  padding-top: 2em;
 }
 div.edit_btns {
   .btn {

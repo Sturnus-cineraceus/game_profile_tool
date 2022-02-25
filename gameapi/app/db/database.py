@@ -5,7 +5,6 @@ from sqlalchemy.schema import Column
 from sqlalchemy.types import Integer, String, Text, Boolean, DateTime
 from sqlalchemy.dialects.mysql import TIMESTAMP as Timestamp
 import app.config as config
-
 HOST = 'mysqldb'
 
 
@@ -43,6 +42,8 @@ class Tweet(Base):
     __table_args__ = ({"mysql_charset": "utf8mb4"})
     user_id = Column(String(40), primary_key=True)
     tweet_status_id = Column(String(40), primary_key=True)
+    tweet_url = Column(String(256))
+    tweet_caption = Column(String(40))
     update_time = Column(Timestamp)
 
 

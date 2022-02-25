@@ -231,18 +231,21 @@
             </b-card>
           </b-col>
         </b-row>
-        <b-row>
+        <b-row v-show="containTweet">
           <b-col>
             <b-card
               border-variant="danger"
               bg-variant="light"
               text-variant="dark"
               header-border-variant="danger"
-              header="わたしのツイート"
+              :header="profile_data.tweet.caption"
               class="text-center profile_card"
             >
               <div class="profile_tweet_card">
-                <Tweet class="tweet_body" id="1495429251075481604"></Tweet>
+                <Tweet
+                  class="tweet_body"
+                  :id="profile_data.tweet.status"
+                ></Tweet>
               </div>
             </b-card>
           </b-col>
@@ -328,7 +331,14 @@ export default {
 
     try {
       let res = await axios.get(url + route.params.user_id);
-      return { profile_data: res.data };
+      if (!res.data.tweet.caption) {
+        res.data.tweet.caption = "わたしのツイート";
+      }
+      let containTweet = true;
+      if (!res.data.tweet.url) {
+        containTweet = false;
+      }
+      return { profile_data: res.data, containTweet: containTweet };
     } catch (e) {
       error({ statusCode: 404, message: "Profile not found" });
       return;

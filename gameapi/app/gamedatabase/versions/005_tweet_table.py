@@ -6,6 +6,8 @@ tweet = Table(
     'tweet', meta,
     Column('user_id', String(40), primary_key=True),
     Column('tweet_status_id', String(40), primary_key=True),
+    Column('tweet_caption', String(40)),
+    Column('tweet_url', String(256)),
     Column('update_time', Timestamp))
 
 
