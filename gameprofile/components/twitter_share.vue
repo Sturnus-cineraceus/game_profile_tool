@@ -21,7 +21,8 @@ export default {
       if (message) {
         message = message + "... ";
       }
-      console.log(message);
+      message = message.replace(/\r?\n/g, " ");
+      message = '"' + message + '"';
       let tweeturl =
         "https://twitter.com/intent/tweet?hashtags=" +
         hashtags +

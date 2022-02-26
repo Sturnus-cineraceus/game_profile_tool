@@ -298,6 +298,7 @@ export default {
       this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/ogpimg.png";
     if (this.profile_data.message) {
       desc = this.profile_data.message.substr(0, 80);
+      desc = desc.replace(/\r?\n/g, " ");
     }
     return {
       title: this.profile_data.twitter_name + "さんのプロフ",
