@@ -506,6 +506,17 @@ a.prf_link {
 .profilem_main {
   padding-top: 3em;
   padding-bottom: 6em;
+  @media screen and (min-width: 480px) {
+    .prof_card_container {
+      padding-left: 0px;
+      padding-right: 0px;
+      .profile_card {
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+    }
+  }
+
   .prof_card_container {
     .profile_card {
       margin: 1em;
