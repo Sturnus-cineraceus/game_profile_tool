@@ -4,7 +4,7 @@
     <div class="contents">
       <b-overlay class="basic_profile" :show="overlay_show" rounded="sm">
         <b-card-group deck>
-          <b-card title="基本プロフィール">
+          <b-card class="prof_card" title="基本プロフィール">
             <b-nav card-header align="end">
               <b-nav-item-dropdown right :no-caret="true">
                 <template slot="button-content">
@@ -148,6 +148,32 @@
               >
             </div>
           </b-card>
+          <b-card class="prof_card" title="プロフィール画像">
+            <b-form-file
+              accept="image/jpeg, image/png, image/gif"
+              v-model="image_file"
+              class="mt-3"
+              plain
+              @change="write_base64"
+            ></b-form-file>
+
+            <div class="profi_image_area">
+              <h5>プレビュー</h5>
+              <div class="profi_image_core">
+                <template v-if="preview_img !== ''">
+                  <b-img :src="preview_img" fluid alt="Fluid image"></b-img>
+                </template>
+              </div>
+            </div>
+            <div class="profi_image_area">
+              <h5>登録中画像</h5>
+              <div class="profi_image_core">
+                <template v-if="preview_img !== ''">
+                  <b-img :src="preview_img" fluid alt="Fluid image"></b-img>
+                </template>
+              </div>
+            </div>
+          </b-card>
         </b-card-group>
       </b-overlay>
     </div>
@@ -172,6 +198,8 @@ export default {
     user: null,
     overlay_show: true,
     existsProfile: false,
+    image_file: "",
+    preview_img: "",
     form: {
       twitter_id: null,
       epic_name: "",
@@ -313,6 +341,21 @@ export default {
       });
   },
   methods: {
+    write_base64: function (event) {
+      const reader = new FileReader();
+      const file = event.target.files[0];
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        this.preview_img = "";
+      }
+
+      // 変換が終わったら実行される
+      reader.onload = () => {
+        this.preview_img = reader.result;
+      };
+    },
     delete_profile: function (bvModalEvt) {
       this.overlay_show = true;
       axios
@@ -402,13 +445,18 @@ div.edit_btns {
   .btn {
     margin-top: 0.5em;
     margin-left: 0.5em;
-    margin-right: 2.5em;
     padding: 1em;
-    font-size: 2em;
-  }
-  .del_btn {
-    margin-left: 1em;
     font-size: 1em;
+  }
+}
+.prof_card {
+  min-width: 600px;
+  .profi_image_area {
+    margin-top: 2em;
+    .profi_image_core {
+      border: 1px solid;
+      min-height: 5em;
+    }
   }
 }
 </style>
