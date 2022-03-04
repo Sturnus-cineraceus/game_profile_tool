@@ -156,7 +156,14 @@
               plain
               @change="write_base64"
             ></b-form-file>
-
+            <div class="edit_btns">
+              <b-button
+                variant="success"
+                class="write_btn"
+                @click="upload_image()"
+                >画像保存</b-button
+              >
+            </div>
             <div class="profi_image_area">
               <h5>プレビュー</h5>
               <div class="profi_image_core">
@@ -198,7 +205,7 @@ export default {
     user: null,
     overlay_show: true,
     existsProfile: false,
-    image_file: "",
+    image_file: [],
     preview_img: "",
     form: {
       twitter_id: null,
@@ -355,6 +362,36 @@ export default {
       reader.onload = () => {
         this.preview_img = reader.result;
       };
+    },
+    upload_image: function () {
+      this.overlay_show = true;
+      let params = new FormData();
+      console.log(this.image_file[0], this.user_id);
+      params.append("image", this.image_file[0]);
+      params.append("user_id", this.user_id);
+
+      console.log(params);
+
+      axios
+        .post("/v1/api/image", params)
+        .then((res) => {
+          this.$bvToast.toast("画像を保存しました", {
+            variant: "success",
+            autoHideDelay: 5000,
+            solid: true,
+          });
+        })
+        .catch((e) => {
+          this.$bvToast.toast("画像の保存に失敗しました", {
+            variant: "danger",
+            autoHideDelay: 5000,
+            solid: true,
+          });
+          this.$logger.error(e);
+        })
+        .finally(() => {
+          this.overlay_show = false;
+        });
     },
     delete_profile: function (bvModalEvt) {
       this.overlay_show = true;
