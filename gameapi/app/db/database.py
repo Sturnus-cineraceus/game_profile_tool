@@ -69,6 +69,7 @@ class Profile(Base):
     twitter_image_url = Column(String(254))
     available = Column(Boolean)
     update_time = Column(Timestamp)
+    profile_image = Column(String(64))
 
 
 def createSession():
