@@ -3,7 +3,9 @@ const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const app = express()
 const multer = require('multer');
-const upload = multer({ dest: "./" });
+const upload = multer({ dest: "./tmp" });
+const fileType = require('file-type');
+const fs = require('fs');
 app.use(express.json())
 
 //ロガー
@@ -109,6 +111,8 @@ app.post("/profile", async (req, res) => {
     }
 
     try {
+
+        let text = fs.readFileSync("sample.txt");
         let resp = await axios.post("http://api/profile/",
             req.body);
         res.status(201).send()
@@ -140,29 +144,41 @@ app.delete("/profile/:user_id", async (req, res) => {
 
 
 
-app.post("/image", upload.single('file'), async (req, res) => {
-    log.debug(req.body);
+app.post("/image", upload.single('image'), async (req, res) => {
+
     if (!req.session.user_data) {
         log.info("ログイン情報なし")
         res.status(403).send()
         return;
     }
     let session_userid = req.session.user_data.twitter_data.user_id;
-    log.debug(session_userid, req.params.user_id)
+    log.debug(session_userid, req.body.user_id)
     if (req.body.user_id !== session_userid) {
         log.info("ログインしている人と違う人がユーザー情報を更新しようとしている")
         res.status(403).send()
         return;
     }
-
+    log.debug(req.file);
+    log.debug(req.body);
     try {
-        // let resp = await axios.put("http://api/image/",
-        //     req.body);
+
+        let imgdata = fs.readFileSync(req.file.path);
+        let filedata = await fileType.fileTypeFromBuffer(imgdata);
+
+        if (!['jpg', 'png', 'gif'].includes(filedata.ext)) {
+            res.status(500).send();
+        }
+
+        let resp = await axios.post("http://api/image/",
+            req.body);
         res.status(201).send()
     } catch (e) {
-        log.error(e.response.status)
-        log.error(e.response.statusText)
-        res.status(e.response.status).send(e.response.statusText);
+        log.error(e)
+        if (e.response) {
+            res.status(e.response.status).send(e.response.statusText);
+        } else {
+            res.status(500).send();
+        }
     }
 })
 /* 本人のプロフィール用API 終わり */
