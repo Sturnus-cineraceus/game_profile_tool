@@ -29,9 +29,41 @@ class ProfileData(BaseModel):
     tweet: dict
 
 
+class ProfileImage(BaseModel):
+    user_id: str
+    profile_image: str
+
+
 def convert_twitter_id(twitter_id):
     idsrc = "twitter" + twitter_id
     return hashlib.md5(idsrc.encode('utf-8')).hexdigest()
+
+
+@router.post('/image', status_code=201)
+def post_profile_image(data: ProfileImage):
+    print(data)
+    session = createSession()
+    dt_now = datetime.datetime.now()
+    try:
+        user_id = data.user_id
+        profile_count = session.query(
+            Profile).filter_by(user_id=user_id).count()
+
+        if profile_count > 0:
+            profile = session.query(
+                Profile).filter_by(user_id=user_id).one()
+            profile.profile_image = data.profile_image
+            profile.update_time = dt_now
+        else:
+            session.rollback()
+            return JSONResponse(status_code=500)
+        session.commit()
+    except Exception as e:
+        print(e)
+        session.rollback()
+        return JSONResponse(status_code=500)
+    finally:
+        session.close()
 
 
 @router.get('/{user_id}')

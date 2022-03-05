@@ -167,10 +167,17 @@ app.post("/image", upload.single('image'), async (req, res) => {
 
         if (!['jpg', 'png', 'gif'].includes(filedata.ext)) {
             res.status(500).send();
+            return;
         }
 
-        let resp = await axios.post("http://api/image/",
-            req.body);
+        let filename = req.body.user_id + "." + filedata.ext;
+        log.debug(filename)
+
+        let resp = await axios.post("http://api/profile/image",
+            { user_id: req.body.user_id, profile_image: filename });
+
+        fs.renameSync(req.file.path, "./static/img/profile/" + filename);
+
         res.status(201).send()
     } catch (e) {
         log.error(e)
