@@ -92,6 +92,42 @@
                   </b-card></b-col
                 >
               </b-row>
+              <b-row>
+                <b-col>
+                  <b-card
+                    border-variant="danger"
+                    bg-variant="light"
+                    text-variant="dark"
+                    header-border-variant="danger"
+                    header="遊んでる時間帯"
+                    class="text-center profile_card"
+                  >
+                    <b-card-text>
+                      <div>
+                        {{ time }}
+                      </div>
+                    </b-card-text>
+                  </b-card></b-col
+                ></b-row
+              >
+              <b-row>
+                <b-col>
+                  <b-card
+                    border-variant="danger"
+                    bg-variant="light"
+                    text-variant="dark"
+                    header-border-variant="danger"
+                    header="ボイスチャット"
+                    class="text-center profile_card"
+                  >
+                    <b-card-text>
+                      <div>
+                        {{ voice }}
+                      </div>
+                    </b-card-text>
+                  </b-card>
+                </b-col></b-row
+              >
             </b-container>
           </b-col>
           <b-col align-self="stretch">
@@ -107,6 +143,7 @@
                 :src="profile_image"
                 fluid-grow
                 alt="Fluid-grow image"
+                class="profile_image"
               ></b-img>
             </b-card>
           </b-col>
@@ -198,24 +235,6 @@
               bg-variant="light"
               text-variant="dark"
               header-border-variant="danger"
-              header="ボイスチャット"
-              class="text-center profile_card"
-            >
-              <b-card-text>
-                <div>
-                  {{ voice }}
-                </div>
-              </b-card-text>
-            </b-card>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col cols="12" md="6">
-            <b-card
-              border-variant="danger"
-              bg-variant="light"
-              text-variant="dark"
-              header-border-variant="danger"
               header="コントローラー"
               class="text-center profile_card"
             >
@@ -224,24 +243,8 @@
                   {{ ctrler }}
                 </div>
               </b-card-text>
-            </b-card>
-          </b-col>
-          <b-col cols="12" md="6">
-            <b-card
-              border-variant="danger"
-              bg-variant="light"
-              text-variant="dark"
-              header-border-variant="danger"
-              header="遊んでる時間帯"
-              class="text-center profile_card"
-            >
-              <b-card-text>
-                <div>
-                  {{ time }}
-                </div>
-              </b-card-text>
-            </b-card>
-          </b-col>
+            </b-card></b-col
+          >
         </b-row>
         <b-row>
           <b-col>
@@ -573,7 +576,9 @@ a.prf_link {
       margin: 1em;
     }
     .profile_image_card {
-      max-height: 90%;
+      .profile_image {
+        max-height: 650px;
+      }
     }
   }
 }

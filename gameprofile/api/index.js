@@ -156,7 +156,12 @@ app.delete("/image/:user_id", async (req, res) => {
     try {
         await axios.delete("http://api/profile/image/" + req.params.user_id);
         log.debug(req.body);
-        fs.unlinkSync("./static/img/profile/" + req.body.profile_image)
+        try {
+            fs.unlinkSync("./static/img/profile/" + req.body.profile_image)
+        } catch (e) {
+            log.warn(e)
+        }
+
     } catch (e) {
         log.error(e)
         res.status(500).send()
