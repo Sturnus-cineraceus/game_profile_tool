@@ -4,8 +4,9 @@
     <div class="contents">
       <b-overlay class="basic_profile" :show="overlay_show" rounded="sm">
         <b-card-group deck>
-          <b-card class="prof_card" title="基本プロフィール">
-            <b-nav card-header align="end">
+          <b-card class="prof_card">
+            <b-nav card-header align="start">
+              <h3>基本プロフィール</h3>
               <b-nav-item-dropdown right :no-caret="true">
                 <template slot="button-content">
                   <b-icon-list class="edit_ham_icon"></b-icon-list>
@@ -148,7 +149,19 @@
               >
             </div>
           </b-card>
-          <b-card class="prof_card" title="プロフィール画像">
+          <b-card class="prof_card">
+            <b-nav card-header align="start">
+              <h3>プロフィール画像</h3>
+              <b-nav-item-dropdown right :no-caret="true">
+                <template slot="button-content">
+                  <b-icon-list class="edit_ham_icon"></b-icon-list>
+                </template>
+                <b-dropdown-item v-b-modal.delete-img-modal
+                  >画像削除</b-dropdown-item
+                >
+              </b-nav-item-dropdown>
+            </b-nav>
+
             <b-form-file
               accept="image/jpeg, image/png, image/gif"
               v-model="image_file"
@@ -156,7 +169,7 @@
               plain
               @change="write_base64"
             ></b-form-file>
-            <div class="edit_btns">
+            <div class="edit_btns" v-if="existsProfile">
               <b-button
                 variant="success"
                 class="write_btn"
@@ -164,20 +177,16 @@
                 >画像保存</b-button
               >
             </div>
-            <div class="profi_image_area">
+            <div class="profi_image_area" v-if="preview_img !== ''">
               <h5>プレビュー</h5>
               <div class="profi_image_core">
-                <template v-if="preview_img !== ''">
-                  <b-img :src="preview_img" fluid alt="Fluid image"></b-img>
-                </template>
+                <b-img :src="preview_img" fluid alt="Fluid image"></b-img>
               </div>
             </div>
-            <div class="profi_image_area">
+            <div class="profi_image_area" v-if="current_img !== ''">
               <h5>登録中画像</h5>
               <div class="profi_image_core">
-                <template v-if="preview_img !== ''">
-                  <b-img :src="preview_img" fluid alt="Fluid image"></b-img>
-                </template>
+                <b-img :src="current_img" fluid alt="Fluid image"></b-img>
               </div>
             </div>
           </b-card>
@@ -188,6 +197,9 @@
     <!-- The modal -->
     <b-modal id="delete-modal" @ok="delete_profile"
       >削除してよろしいですか</b-modal
+    >
+    <b-modal id="delete-img-modal" @ok="delete_image"
+      >画像を削除してよろしいですか</b-modal
     >
   </div>
 </template>
@@ -207,6 +219,9 @@ export default {
     existsProfile: false,
     image_file: [],
     preview_img: "",
+    current_img: "",
+    profile_image_name: "",
+
     form: {
       twitter_id: null,
       epic_name: "",
@@ -328,6 +343,10 @@ export default {
         try {
           let initData = await axios.get("/v1/api/profile/" + user_id);
           this.$logger.debug("プロフィールデータ", initData);
+          if (initData.data.profile_image) {
+            this.profile_image_name = initData.data.profile_image;
+            this.current_img = "/img/profile/" + initData.data.profile_image;
+          }
           this.form = initData.data;
           this.existsProfile = true;
         } catch (e) {
@@ -363,14 +382,43 @@ export default {
         this.preview_img = reader.result;
       };
     },
-    upload_image: function () {
+    delete_image: function () {
+      this.overlay_show = true;
+      axios
+        .delete("/v1/api/image/" + this.user.twitter_data.user_id, {
+          data: { profile_image: this.profile_image_name },
+        })
+        .then((res) => {
+          this.$bvToast.toast("画像削除しました", {
+            variant: "success",
+            autoHideDelay: 5000,
+            solid: true,
+          });
+          location.reload();
+        })
+        .catch((e) => {
+          this.$bvToast.toast("画像削除に失敗しました", {
+            variant: "danger",
+            autoHideDelay: 5000,
+            solid: true,
+          });
+          this.$logger.error(e);
+        })
+        .finally(() => {
+          this.overlay_show = false;
+        });
+    },
+    upload_image: async function () {
       this.overlay_show = true;
       let params = new FormData();
       console.log(this.image_file, this.form.user_id);
       params.append("image", this.image_file);
       params.append("user_id", this.form.user_id);
-
-      console.log(params);
+      if (this.current_img) {
+        await axios.delete("/v1/api/image/" + this.user.twitter_data.user_id, {
+          data: { profile_image: this.profile_image_name },
+        });
+      }
 
       axios
         .post("/v1/api/image", params)
@@ -380,6 +428,7 @@ export default {
             autoHideDelay: 5000,
             solid: true,
           });
+          location.reload();
         })
         .catch((e) => {
           this.$bvToast.toast("画像の保存に失敗しました", {
@@ -393,8 +442,14 @@ export default {
           this.overlay_show = false;
         });
     },
-    delete_profile: function (bvModalEvt) {
+    delete_profile: async function (bvModalEvt) {
       this.overlay_show = true;
+      try {
+        await axios.delete("/v1/api/image/" + this.user.twitter_data.user_id, {
+          data: { profile_image: this.profile_image_name },
+        });
+      } catch {}
+
       axios
         .delete("/v1/api/profile/" + this.user.twitter_data.user_id)
         .then((res) => {
@@ -436,6 +491,7 @@ export default {
             autoHideDelay: 5000,
             solid: true,
           });
+          location.reload();
         })
         .catch((e) => {
           this.$bvToast.toast("保存に失敗しました", {

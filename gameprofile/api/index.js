@@ -111,8 +111,6 @@ app.post("/profile", async (req, res) => {
     }
 
     try {
-
-        let text = fs.readFileSync("sample.txt");
         let resp = await axios.post("http://api/profile/",
             req.body);
         res.status(201).send()
@@ -142,6 +140,30 @@ app.delete("/profile/:user_id", async (req, res) => {
     res.status(202).send()
 })
 
+app.delete("/image/:user_id", async (req, res) => {
+    let session_userid = req.session.user_data.twitter_data.user_id;
+    log.debug(session_userid, req.params.user_id)
+    if (req.params.user_id !== session_userid) {
+        log.info("ログインしている人と違う人がユーザー情報を削除しようとしている")
+        res.status(403).send()
+        return;
+    }
+    if (!req.body.profile_image) {
+        log.info("ファイルを存在しないのに削除しようとした")
+        res.status(401).send()
+        return;
+    }
+    try {
+        await axios.delete("http://api/profile/image/" + req.params.user_id);
+        log.debug(req.body);
+        fs.unlinkSync("./static/img/profile/" + req.body.profile_image)
+    } catch (e) {
+        log.error(e)
+        res.status(500).send()
+        return
+    }
+    res.status(202).send()
+})
 
 
 app.post("/image", upload.single('image'), async (req, res) => {
@@ -161,7 +183,6 @@ app.post("/image", upload.single('image'), async (req, res) => {
     log.debug(req.file);
     log.debug(req.body);
     try {
-
         let imgdata = fs.readFileSync(req.file.path);
         let filedata = await fileType.fileTypeFromBuffer(imgdata);
 

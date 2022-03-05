@@ -64,6 +64,34 @@
                   </b-card>
                 </b-col>
               </b-row>
+              <b-row>
+                <b-col>
+                  <b-card
+                    border-variant="danger"
+                    bg-variant="light"
+                    text-variant="dark"
+                    header-border-variant="danger"
+                    header="チーム名"
+                    class="text-center profile_card"
+                  >
+                    <b-card-text>{{ profile_data.team }}</b-card-text>
+                  </b-card></b-col
+                >
+              </b-row>
+              <b-row>
+                <b-col>
+                  <b-card
+                    border-variant="danger"
+                    bg-variant="light"
+                    text-variant="dark"
+                    header-border-variant="danger"
+                    header="性別"
+                    class="text-center profile_card"
+                  >
+                    <b-card-text>{{ sex }}</b-card-text>
+                  </b-card></b-col
+                >
+              </b-row>
             </b-container>
           </b-col>
           <b-col align-self="stretch">
@@ -80,32 +108,6 @@
                 fluid-grow
                 alt="Fluid-grow image"
               ></b-img>
-            </b-card>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col cols="12" md="6">
-            <b-card
-              border-variant="danger"
-              bg-variant="light"
-              text-variant="dark"
-              header-border-variant="danger"
-              header="性別"
-              class="text-center profile_card"
-            >
-              <b-card-text>{{ sex }}</b-card-text>
-            </b-card>
-          </b-col>
-          <b-col cols="12" md="6">
-            <b-card
-              border-variant="danger"
-              bg-variant="light"
-              text-variant="dark"
-              header-border-variant="danger"
-              header="チーム名"
-              class="text-center profile_card"
-            >
-              <b-card-text>{{ profile_data.team }}</b-card-text>
             </b-card>
           </b-col>
         </b-row>

@@ -66,6 +66,28 @@ def post_profile_image(data: ProfileImage):
         session.close()
 
 
+@router.delete('/image/{user_id}', status_code=202)
+def delete_image(user_id):
+    session = createSession()
+    try:
+        profile_count = session.query(
+            Profile).filter_by(user_id=user_id).count()
+
+        if(profile_count <= 0):
+            return
+
+        profile = session.query(
+            Profile).filter_by(user_id=user_id).first()
+        profile.profile_image = ""
+        session.commit()
+    except Exception as e:
+        print(e)
+        session.rollback()
+        return JSONResponse(status_code=500)
+    finally:
+        session.close()
+
+
 @router.get('/{user_id}')
 def get_profile(user_id):
     session = createSession()
