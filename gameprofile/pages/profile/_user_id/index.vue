@@ -16,27 +16,70 @@
       <b-container class="prof_card_container">
         <b-row>
           <b-col cols="12" md="6">
-            <b-card
-              border-variant="danger"
-              bg-variant="light"
-              text-variant="dark"
-              header-border-variant="danger"
-              header="EpicID"
-              class="text-center profile_card"
-            >
-              <b-card-text>{{ profile_data.epic_name }}</b-card-text>
-            </b-card>
+            <b-container class="inner_container">
+              <b-row>
+                <b-col>
+                  <b-card
+                    border-variant="danger"
+                    bg-variant="light"
+                    text-variant="dark"
+                    header-border-variant="danger"
+                    header="EpicID"
+                    class="text-center profile_card"
+                  >
+                    <b-card-text>{{ profile_data.epic_name }}</b-card-text>
+                  </b-card>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col>
+                  <b-card
+                    border-variant="danger"
+                    bg-variant="light"
+                    text-variant="dark"
+                    header-border-variant="danger"
+                    header="Twitter"
+                    class="text-center profile_card"
+                  >
+                    <b-card-text>
+                      <a
+                        class="prf_link"
+                        :href="profile_data.twitter_url"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span class="tw_name">
+                          <b-avatar
+                            class="tw_avt"
+                            :src="twitter_image"
+                            size="4rem"
+                          ></b-avatar>
+                          <span class="tw_name">{{
+                            profile_data.twitter_name
+                          }}</span>
+                          <b-icon-box-arrow-up-right></b-icon-box-arrow-up-right>
+                        </span>
+                      </a>
+                    </b-card-text>
+                  </b-card>
+                </b-col>
+              </b-row>
+            </b-container>
           </b-col>
-          <b-col cols="12" md="6">
+          <b-col align-self="stretch">
             <b-card
               border-variant="danger"
               bg-variant="light"
               text-variant="dark"
               header-border-variant="danger"
-              header="性別"
-              class="text-center profile_card"
+              header="image"
+              class="text-center profile_card profile_image_card"
             >
-              <b-card-text>{{ sex }}</b-card-text>
+              <b-img
+                :src="profile_image"
+                fluid-grow
+                alt="Fluid-grow image"
+              ></b-img>
             </b-card>
           </b-col>
         </b-row>
@@ -47,27 +90,10 @@
               bg-variant="light"
               text-variant="dark"
               header-border-variant="danger"
-              header="Twitter"
+              header="性別"
               class="text-center profile_card"
             >
-              <b-card-text>
-                <a
-                  class="prf_link"
-                  :href="profile_data.twitter_url"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span class="tw_name">
-                    <b-avatar
-                      class="tw_avt"
-                      :src="profile_img"
-                      size="4rem"
-                    ></b-avatar>
-                    <span class="tw_name">{{ profile_data.twitter_name }}</span>
-                    <b-icon-box-arrow-up-right></b-icon-box-arrow-up-right>
-                  </span>
-                </a>
-              </b-card-text>
+              <b-card-text>{{ sex }}</b-card-text>
             </b-card>
           </b-col>
           <b-col cols="12" md="6">
@@ -294,8 +320,15 @@ export default {
       this.$config.DOMAIN +
       "/profile/" +
       this.profile_data.user_id;
-    let ogimg =
-      this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + "/ogpimg.png";
+
+    let ogfile = "/ogpimg.png";
+
+    if (this.profile_data.profile_image) {
+      ogfile = "/img/profile/" + this.profile_data.profile_image;
+    }
+
+    let ogimg = this.$config.HTTP_PROTOCOL + this.$config.DOMAIN + ogfile;
+
     if (this.profile_data.message) {
       desc = this.profile_data.message.substr(0, 80);
       desc = desc.replace(/\r?\n/g, " ");
@@ -332,6 +365,7 @@ export default {
 
     try {
       let res = await axios.get(url + route.params.user_id);
+      console.log(res.data);
       if (!res.data.tweet.caption) {
         res.data.tweet.caption = "わたしのツイート";
       }
@@ -346,12 +380,18 @@ export default {
     }
   },
   computed: {
+    profile_image: function () {
+      if (this.profile_data.profile_image) {
+        return "/img/profile/" + this.profile_data.profile_image;
+      }
+      return "/img/NOIMAGE.png";
+    },
     update_time: function () {
       let dt = new Date(this.profile_data.update_time);
       const upd = this.$dayjs(dt);
       return upd.format("YYYY/MM/DD HH:mm ");
     },
-    profile_img: function () {
+    twitter_image: function () {
       return this.profile_data.twitter_image_url.replace("normal", "bigger");
     },
     sex: function () {
@@ -515,12 +555,23 @@ a.prf_link {
         margin-top: 1em;
         margin-bottom: 1em;
       }
+      .inner_container {
+        padding-left: 0px;
+        padding-right: 0px;
+        .row {
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+      }
     }
   }
 
   .prof_card_container {
     .profile_card {
       margin: 1em;
+    }
+    .profile_image_card {
+      max-height: 90%;
     }
   }
 }
