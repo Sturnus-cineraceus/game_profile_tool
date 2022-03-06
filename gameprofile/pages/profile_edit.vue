@@ -411,8 +411,16 @@ export default {
     upload_image: async function () {
       this.overlay_show = true;
       let params = new FormData();
-
-      console.log(this.image_file.size);
+      const limit = 10 * 1024 * 1024;
+      if (this.image_file.size >= limit) {
+        this.$bvToast.toast("画像ファイルのサイズが大きすぎます", {
+          variant: "danger",
+          autoHideDelay: 5000,
+          solid: true,
+        });
+        this.overlay_show = false;
+        return;
+      }
 
       params.append("image", this.image_file);
       params.append("user_id", this.form.user_id);
