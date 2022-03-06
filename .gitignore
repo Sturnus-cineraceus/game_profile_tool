@@ -10,3 +10,8 @@ gameprofile/static/img/assets/*
 !.gitkeep
 *.tar.gz
 gameprofile/static/robots.txt
+gameprofile/tmp/*
+!gameprofile/tmp/.gitkeep
+gameprofile/static/img/profile/*
+!gameprofile/static/img/profile/.gitkeep
+
