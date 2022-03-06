@@ -411,7 +411,9 @@ export default {
     upload_image: async function () {
       this.overlay_show = true;
       let params = new FormData();
-      console.log(this.image_file, this.form.user_id);
+
+      console.log(this.image_file.size);
+
       params.append("image", this.image_file);
       params.append("user_id", this.form.user_id);
       if (this.current_img) {

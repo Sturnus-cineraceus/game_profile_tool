@@ -122,15 +122,14 @@ app.post("/profile", async (req, res) => {
 })
 
 app.delete("/profile/:user_id", async (req, res) => {
-    let session_userid = req.session.user_data.twitter_data.user_id;
-    log.debug(session_userid, req.params.user_id)
-    if (req.params.user_id !== session_userid) {
-        log.info("ログインしている人と違う人がユーザー情報を削除しようとしている")
-        res.status(403).send()
-        return;
-    }
-
     try {
+        let session_userid = req.session.user_data.twitter_data.user_id;
+        log.debug(session_userid, req.params.user_id)
+        if (req.params.user_id !== session_userid) {
+            log.info("ログインしている人と違う人がユーザー情報を削除しようとしている")
+            res.status(403).send()
+            return;
+        }
         await axios.delete("http://api/profile/" + req.params.user_id);
     } catch (e) {
         log.error(e)
@@ -141,19 +140,20 @@ app.delete("/profile/:user_id", async (req, res) => {
 })
 
 app.delete("/image/:user_id", async (req, res) => {
-    let session_userid = req.session.user_data.twitter_data.user_id;
-    log.debug(session_userid, req.params.user_id)
-    if (req.params.user_id !== session_userid) {
-        log.info("ログインしている人と違う人がユーザー情報を削除しようとしている")
-        res.status(403).send()
-        return;
-    }
-    if (!req.body.profile_image) {
-        log.info("ファイルを存在しないのに削除しようとした")
-        res.status(401).send()
-        return;
-    }
     try {
+        let session_userid = req.session.user_data.twitter_data.user_id;
+        log.debug(session_userid, req.params.user_id)
+        if (req.params.user_id !== session_userid) {
+            log.info("ログインしている人と違う人がユーザー情報を削除しようとしている")
+            res.status(403).send()
+            return;
+        }
+        if (!req.body.profile_image) {
+            log.info("ファイルを存在しないのに削除しようとした")
+            res.status(401).send()
+            return;
+        }
+
         await axios.delete("http://api/profile/image/" + req.params.user_id);
         log.debug(req.body);
         try {
@@ -191,10 +191,20 @@ app.post("/image", upload.single('image'), async (req, res) => {
         let imgdata = fs.readFileSync(req.file.path);
         let filedata = await fileType.fileTypeFromBuffer(imgdata);
 
+        const limit = 50 * 1024 * 1024;
+        if (imgdata.size > limit) {
+            fs.unlinkSync(req.file.path)
+            res.status(400).send();
+            return
+        }
+
         if (!['jpg', 'png', 'gif'].includes(filedata.ext)) {
-            res.status(500).send();
+            fs.unlinkSync(req.file.path)
+            res.status(400).send();
             return;
         }
+        log.debug(imgdata.size)
+
 
         let filename = req.body.user_id + "." + filedata.ext;
         log.debug(filename)
